@@ -5,8 +5,7 @@ Cloud Computing Project
 * cd CMPE281_MobileTaaS
 * git pull origin master
 ## Run the Application
-* npm i
-* nodemon app.js or npm app.js
+* npm start
 ## Database Connection
 * use MongoDB
 * connect MongoDB in your local.
