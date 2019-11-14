@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
         data.push(manager);
         console.log(manager);
       }
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Mobile-TaaS' });
       }); 
 });
   
