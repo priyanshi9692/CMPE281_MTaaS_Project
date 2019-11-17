@@ -81,7 +81,6 @@ router.get('/login', function(req, res, next) {
           req.session.user = client;
           return res.send("success");
         }
-       
       }
       return res.send("username or password is incorrect, please try again!");
    
