@@ -95,9 +95,9 @@
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Total Projects</p>
-                      <p class="card-title">1
+                    <div class="numbers" >
+                      <p class="card-category" >Total Projects</p>
+                      <p class="card-title" id="num" > </p>
                         <p>
                     </div>
                   </div>
@@ -263,8 +263,8 @@
   <script src=" js/core/popper.min.js"></script>
   <script src=" js/core/bootstrap.min.js"></script>
   <script src=" js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+   <!-- Google Maps Plugin   
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
   <script src=" js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
@@ -277,6 +277,16 @@
     $(document).ready(function() {
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
+
+      const url = '/getprojects';
+
+// Populate dropdown with list of provinces
+$.getJSON(url, function (data) {
+  console.log(data.length);
+  var num= data.length;
+  $("#num").text(num.toString());
+//document.getElementById('num').value=data.length;
+});
     });
   </script>
 </body>

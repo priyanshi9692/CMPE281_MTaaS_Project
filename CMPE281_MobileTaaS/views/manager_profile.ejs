@@ -123,7 +123,7 @@
                     <div class="row">
                       <div class="col-md-2 col-2">
                         <div class="avatar">
-                          <img src="img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                          <img src="img/faces/parvathy.jpeg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                         </div>
                       </div>
                       <div class="col-md-7 col-7">
@@ -142,7 +142,7 @@
                     <div class="row">
                       <div class="col-md-2 col-2">
                         <div class="avatar">
-                          <img src="img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                          <img src="img/faces/gayathri.jpeg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                         </div>
                       </div>
                       <div class="col-md-7 col-7">
@@ -161,7 +161,7 @@
                     <div class="row">
                       <div class="col-md-2 col-2">
                         <div class="avatar">
-                          <img src="img/faces/clem-onojeghuo-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                          <img src="img/faces/qi.jpeg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                         </div>
                       </div>
                       <div class="col-ms-7 col-7">
@@ -186,40 +186,36 @@
                 <h5 class="card-title">Edit Profile</h5>
               </div>
               <div class="card-body">
-                <form>
-                  <div class="row">
-                  <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Username" value="michael23">
+                <form method="post" action ="editprofile">
+                    <div class="row">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control"  name="name" id="name">
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-6 pl-1">
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" placeholder="Email">
-                      </div>
-                    </div>
-                  </div>
+
                   <div class="row">
                     <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" class="form-control" placeholder="Company" value="Chet">
+                        <div class="form-group">
+                          <label>Password</label>
+                          <input type="password" class="form-control"  name="password" id="password">
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-6 pl-1">
-                      <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last Name" value="Faker">
-                      </div>
-                    </div>
+                      <div class="col-md-6 pl-1">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control"  name="email" id="email">
+                          </div>
+                        </div>
                   </div>
+
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Address</label>
-                        <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
+                        <input type="text" class="form-control" name="address" id="address">
                       </div>
                     </div>
                   </div>
@@ -227,19 +223,19 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>City</label>
-                        <input type="text" class="form-control" placeholder="City" value="Melbourne">
+                        <input type="text" class="form-control" name="city" id="city">
                       </div>
                     </div>
                     <div class="col-md-4 px-1">
                       <div class="form-group">
-                        <label>Country</label>
-                        <input type="text" class="form-control" placeholder="Country" value="Australia">
+                        <label>State</label>
+                        <input type="text" class="form-control" name="state" id="state">
                       </div>
                     </div>
                     <div class="col-md-4 pl-1">
                       <div class="form-group">
-                        <label>Postal Code</label>
-                        <input type="number" class="form-control" placeholder="ZIP Code">
+                        <label>Zipcode</label>
+                        <input type="number" class="form-control" name="zipcode" id="zipcode">
                       </div>
                     </div>
                   </div>
@@ -247,7 +243,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>About Me</label>
-                        <textarea class="form-control textarea"></textarea>
+                        <textarea class="form-control textarea" name="aboutme" id="aboutme"></textarea>
                       </div>
                     </div>
                   </div>
@@ -270,8 +266,8 @@
   <script src="js/core/popper.min.js"></script>
   <script src="js/core/bootstrap.min.js"></script>
   <script src="js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+   <!-- Google Maps Plugin   
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
   <script src="js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
@@ -280,6 +276,23 @@
   <script src="js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="demo/demo.js"></script>
+  <script>
+  $( document ).ready(function() { 
+
+  $.get("getprofile", function(data, status){
+    document.getElementById('name').value = data.name;
+    document.getElementById('email').value = data.email;
+    document.getElementById('password').value = data.password;
+    document.getElementById('address').value = data.address;
+    document.getElementById('city').value = data.city;
+    document.getElementById('state').value = data.state;
+    document.getElementById('zipcode').value = data.zipcode;
+    document.getElementById('aboutme').value = data.aboutme;
+    console.log(data);
+  });
+});
+
+  </script>
 </body>
 
 </html>
