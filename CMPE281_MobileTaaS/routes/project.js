@@ -65,9 +65,7 @@ router.get('/profile', function(req, res, next) {
             pro.push(field);
             console.log('Field', name, field)
           });
-
-         
-        form.on('fileBegin', function (name, file){
+      form.on('fileBegin', function (name, file){
             var ext = file.name.split(".")[1];
             file.name = pro[0] + "_" + req.session.user.username + "_"+ name + "." + ext;
             pro.push(file.name);
@@ -79,7 +77,6 @@ router.get('/profile', function(req, res, next) {
             //pro.push(file.name);
             console.log('Uploaded ' + file.name);
         });
-        
         form.on('end', () => {
             project.name = pro[0];
             project.description=pro[1];
@@ -140,7 +137,25 @@ router.get('/getproject', function(req, res, next) {
   }); 
 });
 
+router.get('/getAllprojects', function(req, res, next) {
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("mobile_taas");
+    var info = {
+      "data":[]
+    };
+    dbo.collection("project_details").find({}).toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result);
+      info.data = result;
+      res.send(info);
 
+      return;
+    });
+  }); 
+});
+
+/* UPDATE/ PUT Project Details */
 router.post('/editproject', function(req, res) {
   console.log("body",req.body);
   const form = JSON.parse(JSON.stringify(req.body));
@@ -149,7 +164,7 @@ router.post('/editproject', function(req, res) {
       var dbo = db.db("mobile_taas");
       var query = { name:form.name };
       var newvalues = { $set: form };
-      dbo.collection("client").updateOne(query,newvalues,function(err, result) {
+      dbo.collection("project_details").updateOne(query,newvalues,function(err, result) {
         if (err) throw err;
         //console.log(result);
         req.session.user.name=form.name;
@@ -162,6 +177,24 @@ router.post('/editproject', function(req, res) {
     }); 
 
 });
+/* DELETE Project */
+router.delete('/editproject',function(req,res){
+  console.log("delete:",req.body);
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("mobile_taas");
+    var myquery = { name: req.body.name };
+  dbo.collection("project_details").deleteOne(myquery, function(err, obj) {
+    if (err) { 
+      console.log(err);
+      return res.send("fail");  
+    }
+    console.log("1 document deleted");
+    db.close();
+    return res.send("success");
+  });
+});
+});
   module.exports = router;
-  
+
   

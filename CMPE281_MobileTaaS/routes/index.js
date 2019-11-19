@@ -56,7 +56,7 @@ router.post('/register', function(req, res, next) {
       if(err)throw err;
 
       
-    res.send("Successfully inserted");
+    return res.redirect("/dashboard");
       }); 
 });
 });

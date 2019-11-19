@@ -169,11 +169,14 @@
                     <div class="update ml-auto mr-auto">
                       <button type="submit" class="btn btn-primary btn-round">Update Project</button>
                     </div>
-                    <div class="update ml-auto mr-auto">
-                        <button type="submit" class="btn btn-primary btn-round" style="background-color:crimson">Delete Project</button>
-                      </div>
+                 
                   </div>
                 </form>
+                <div class="row">
+                <div class="update ml-auto mr-auto">
+                  <button type="submit" onclick="deleteProject()" class="btn btn-primary btn-round" style="background-color:crimson">Delete Project</button>
+                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -216,6 +219,36 @@ $.getJSON(url, function (data) {
 });
 
     });
+
+
+    //$(this).find('option:selected').attr("name");
+
+function deleteProject(){
+  var d = $("#locality-dropdown").find('option:selected').attr("value");
+  console.log(d);
+  var data = {};
+  data.name=d;
+  $.ajax({
+    url: '/editproject',
+    method: 'DELETE',
+    data:data,
+    // contentType: 'application/json',
+    // dataType: "json",
+    success: function(result) {
+       if(result == "success"){
+         alert("Successfully Deleted:" + d); 
+         window.location.href = "http://localhost:3000/projects";
+       }
+       else {
+         alert("Some error occured");
+       }
+    },
+    error: function(request,msg,error) {
+        alert("Not able to submit request");
+    }
+  });
+}
+
 
 $('#locality-dropdown').change( function() {
    $(this).find(":selected").each(function () {
