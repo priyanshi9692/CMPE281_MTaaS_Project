@@ -42,40 +42,52 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <a href="/dashboard">
-              <i class="nc-icon nc-bank"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li> <a href="/add">
-            <i class="nc-icon nc-cloud-upload-94"></i>
-            <p>Add Project</p>
-          </a></li>
-         
-          <li>
-            <a href="/projects">
-              <i class="nc-icon nc-tap-01"></i>
-              <p>Update Project</p>
-            </a>
-          </li>
-          <li>
-          <li class="active ">
-            <a href="/profile">
-              <i class="nc-icon nc-single-02"></i>
-              <p>Profile</p>
-            </a>
-          </li>
-          <li>
-            <a href="/chat">
-              <i class="nc-icon nc-chat-33"></i>
-              <p>Community Chat</p>
-            </a>
-          </li>
-
-        </ul>
-      </div>
+          <ul class="nav">
+            <li>
+              <a href="/dashboard">
+                <i class="nc-icon nc-bank"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+            <li>
+              <a href="/projects">
+                <i class="nc-icon nc-single-copy-04"></i>
+                <p>My Test Progress</p>
+              </a>
+            </li>
+            <li class="active "> 
+              <a href="/profile">
+                <i class="nc-icon nc-single-02"></i>
+                <p>Profile</p>
+              </a>
+            </li>
+            <li>
+                <a href="/addemulator">
+                  <i class="nc-icon nc-laptop"></i>
+                  <p>Emulator</p>
+                </a>
+              </li>
+            <li>
+              <a href="/adddevice">
+               <i class="nc-icon nc-mobile"></i>
+               <p>Devices</p>
+              </a>
+            </li>
+            <li>
+                <a href="/bill">
+                  <i class="nc-icon nc-credit-card"></i>
+                  <p>Bill</p>
+                </a>
+              </li>
+            <li>
+              <a href="#">
+                <i class="nc-icon nc-chat-33"></i>
+                <p>Community Chat</p>
+              </a>
+            </li>
+            <li>
+          </ul>
+        </div>
     </div>
     <div class="main-panel">
         <%- include nav.ejs %>
@@ -83,7 +95,7 @@
 
 
 </div> -->
-      <div class="content">
+   <div class="content">
         <div class="row">
           <div class="col-md-4">
             <div class="card card-user">
@@ -113,72 +125,7 @@
                 </div>
               </div>
             </div>
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">Team Members</h4>
-              </div>
-              <div class="card-body">
-                <ul class="list-unstyled team-members">
-                  <li>
-                    <div class="row">
-                      <div class="col-md-2 col-2">
-                        <div class="avatar">
-                          <img src="img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                        </div>
-                      </div>
-                      <div class="col-md-7 col-7">
-                        Parvathy 
-                        <br />
-                        <span class="text-muted">
-                          <small>Offline</small>
-                        </span>
-                      </div>
-                      <div class="col-md-3 col-3 text-right">
-                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="row">
-                      <div class="col-md-2 col-2">
-                        <div class="avatar">
-                          <img src="img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                        </div>
-                      </div>
-                      <div class="col-md-7 col-7">
-                        Gayathri
-                        <br />
-                        <span class="text-success">
-                          <small>Available</small>
-                        </span>
-                      </div>
-                      <div class="col-md-3 col-3 text-right">
-                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="row">
-                      <div class="col-md-2 col-2">
-                        <div class="avatar">
-                          <img src="img/faces/clem-onojeghuo-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                        </div>
-                      </div>
-                      <div class="col-ms-7 col-7">
-                        Qi
-                        <br />
-                        <span class="text-danger">
-                          <small>Busy</small>
-                        </span>
-                      </div>
-                      <div class="col-md-3 col-3 text-right">
-                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+        
           </div>
           <div class="col-md-8">
             <div class="card card-user">
@@ -186,7 +133,8 @@
                 <h5 class="card-title">Edit Profile</h5>
               </div>
               <div class="card-body">
-                <form>
+                <form action="/tester_update" method="post" enctype="multipart/form-data">
+
                   <div class="row">
                   <div class="col-md-6 pr-1">
                       <div class="form-group">
@@ -205,13 +153,13 @@
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" class="form-control" placeholder="Company" value="Chet">
+                        <input type="text" class="form-control" placeholder="First Name" value="Qi">
                       </div>
                     </div>
                     <div class="col-md-6 pl-1">
                       <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last Name" value="Faker">
+                        <input type="text" class="form-control" placeholder="Last Name" value="Liu">
                       </div>
                     </div>
                   </div>
@@ -219,7 +167,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Address</label>
-                        <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
+                        <input type="text" class="form-control" placeholder="Home Address" value="111 Rigoletto Dr">
                       </div>
                     </div>
                   </div>
@@ -227,33 +175,53 @@
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>City</label>
-                        <input type="text" class="form-control" placeholder="City" value="Melbourne">
+                        <input type="text" class="form-control" placeholder="City" value="San Jose">
                       </div>
                     </div>
                     <div class="col-md-4 px-1">
                       <div class="form-group">
                         <label>Country</label>
-                        <input type="text" class="form-control" placeholder="Country" value="Australia">
+                        <input type="text" class="form-control" placeholder="Country" value="United States">
                       </div>
                     </div>
                     <div class="col-md-4 pl-1">
                       <div class="form-group">
                         <label>Postal Code</label>
-                        <input type="number" class="form-control" placeholder="ZIP Code">
+                        <input type="number" class="form-control" placeholder="ZIP Code" value="CA95122">
                       </div>
                     </div>
                   </div>
                   <div class="row">
+                      <div class ="col-md-12"> 
+                            <div class="form-group">
+                                    <label>Company</label>
+                                    <input type="text" class="form-control" placeholder="Company or Instatution" value="SJSU">
+                                  </div>
+                        <div>
+    
+                  </div>
+                  <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>About Me</label>
+                        <label>Skills and Experiences</label>
                         <textarea class="form-control textarea"></textarea>
                       </div>
                     </div>
                   </div>
                   <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Upload Your Resume:</label>
+                            <input type="file" name="resume" id="resume" multiple>
+                  
+                            <label class="custom-file-resume" for="resume"></label>
+                            <input type="submit" class="btn btn-primary btn-round" value="Upload">
+                          </div>
+                        </div>
+                    </div>>
+                  <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+                      <button type="submit" class="btn btn-primary btn-round" onclick="update_profile()">Update Profile</button>
                     </div>
                   </div>
                 </form>
@@ -261,10 +229,11 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
       <%- include footer.ejs %>
     </div>
   </div>
+ 
   <!--   Core JS Files   -->
   <script src="js/core/jquery.min.js"></script>
   <script src="js/core/popper.min.js"></script>
@@ -281,5 +250,16 @@
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="demo/demo.js"></script>
 </body>
+<script>
+    $('#resume').on('change',function(){
+        //get the file name
+     var fileName = $(this).val();
+     var t = fileName.split("\\");
+        t = t[t.length-1];
+        console.log(t);
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-resume').html(t);
+    });
+</script>
 
 </html>

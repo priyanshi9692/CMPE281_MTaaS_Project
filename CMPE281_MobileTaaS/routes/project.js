@@ -22,7 +22,7 @@ router.get('/profile', function(req, res, next) {
   router.get('/projects', function(req, res, next) {
     if (req.session && req.session.user) {
       if(req.session.user.type=="tester"){
-        return res.render('tester_profile',{
+        return res.render('task_progress',{
           user:req.session.user.name
         });
       } else if(req.session.user.type=="projectmanager") {
@@ -50,13 +50,51 @@ router.get('/profile', function(req, res, next) {
     return res.redirect("/");
   });
 
-  router.get('/chat', function(req, res, next) {
-    if (req.session && req.session.user) {     
-        return res.render('chat',{
+  router.get('/adddevice', function(req, res, next) {
+    if (req.session && req.session.user) {
+        return res.render('devices.ejs',{
           user:req.session.user.name
-        });    
+        });
     }
     return res.redirect("/");
+  });
+
+  router.get('/bill', function(req, res, next) {
+    if (req.session && req.session.user) {
+        return res.render('bill.ejs',{
+          user:req.session.user.name
+        });
+    }
+    return res.redirect("/");
+  });
+
+  router.get('/project_detail', function(req, res, next) {
+    if (req.session && req.session.user) {
+        return res.render('projectdetail.ejs',{
+          user:req.session.user.name
+        });
+    }
+    return res.redirect("/");
+  });
+
+  router.get('/addemulator', function(req, res, next) {
+    if (req.session && req.session.user) {
+      if(req.session.user.type=="tester"){
+        return res.render('emulators',{
+          user:req.session.user.name
+        });
+      } else if(req.session.user.type=="projectmanager") {
+        return res.render('addprojects',{
+          user:req.session.user.name
+        });
+      }
+    }
+    return res.redirect("/");
+  });
+
+/* Update tester's profile */
+  router.post('/tester_update', function(req,res){
+    //tod
   });
 
   router.post('/addproject', function(req,res){
@@ -106,7 +144,6 @@ router.get('/profile', function(req, res, next) {
     });
         res.redirect("http://localhost:3000/dashboard");
   });
-
 
   module.exports = router;
   

@@ -32,6 +32,10 @@ router.get('/dashboard', function(req, res, next) {
 });
 
 
+
+
+
+
 /* Registration API */
 router.post('/register', function(req, res, next) {
   console.log(req.body);
