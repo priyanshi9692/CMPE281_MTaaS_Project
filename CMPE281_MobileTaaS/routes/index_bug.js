@@ -3,7 +3,7 @@ var router = express.Router();
 var MongoClient= require('mongodb').MongoClient;
 
 /* Adding a bug API */
-router.post('/tester/addabug', function(req, res, next) {
+router.post('./routes/addabug', function(req, res, next) {
   console.log(req.body);
   var Bug={};
   Bug.Bug_ID=req.body.Bug_ID;
@@ -34,7 +34,7 @@ router.post('/tester/addabug', function(req, res, next) {
 });
 
 /* Search for a bug API */
-router.get('/tester/searchabug', function(req, res, next) {
+router.get('./routes/searchabug', function(req, res, next) {
     var Bug={};
     var ID=req.query.Bug_ID;
     var product=req.query.product;
@@ -63,7 +63,7 @@ router.get('/tester/searchabug', function(req, res, next) {
   });
 
   /* Update a bug API */
-router.put('/tester/updateabug', function(req, res, next) {
+router.put('./routes/updateabug', function(req, res, next) {
     var Bug={};
     var ID=req.query.Bug_ID;
     var product=req.query.product;
@@ -80,14 +80,14 @@ router.put('/tester/updateabug', function(req, res, next) {
       }
       var dbo = db.db("mobile_taas");
       criteria={ID=Bug.Bug_ID,product=Bug.product,component=Bug.component};
-      update={Bug.version=updated_version;Bug.priority=updated_priority,Bug.summary=updated_summary,Bug.status=status,Bug.date_modified=date_modified};
+      update={Bug.version=updated_version,Bug.priority=updated_priority,Bug.summary=updated_summary,Bug.status=status,Bug.date_modified=date_modified};
 
       
       dbo.collection("Bug").find({}).toArray(function(err, result) {
         if (err) throw err
         for(var i=0;i<result.length;i++){
 
-            dbo.collection("Bug").find(criteria,update)
+            dbo.collection("Bug").updateOne(criteria,update)
             console.log(Bug);
             return res.send("Bug Successfully updated");
          
@@ -99,7 +99,7 @@ router.put('/tester/updateabug', function(req, res, next) {
   });
 
   /* Delete a bug API */
-router.put('/tester/deleteabug', function(req, res, next) {
+router.put('./routes/deleteabug', function(req, res, next) {
     var Bug={};
     var ID=req.query.Bug_ID;
     var product=req.query.product;
