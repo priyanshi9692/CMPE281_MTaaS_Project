@@ -7,6 +7,7 @@ var session = require('client-sessions');
 var indexRouter = require('./routes/index');
 var projectRouter = require('./routes/project');
 var app = express();
+var bugRouter = require('./routes/bug'); 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
