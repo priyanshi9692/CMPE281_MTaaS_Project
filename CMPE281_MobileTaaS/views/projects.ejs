@@ -91,9 +91,14 @@
           <div class="col-md-12">
             <div class="card card-user">
               <div class="card-header">
-                <h5 class="card-title">Add Project</h5>
+                <h5 class="card-title">Update Project Details</h5>
               </div>
               <div class="card-body">
+                  
+                <select id="locality-dropdown" name="locality">
+                    </select>
+
+
                 <form action="/addproject" method="post" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-md-5 pr-1">
@@ -133,7 +138,7 @@
                         <label>Upload Documentation:</label>
                         <input type="file" name="document" id="document" multiple>
               
-                        <label class="custom-file-document" for="document"></label>
+                        <label class="custom-file-document" for="document" id="doc"></label>
                         <input type="submit" class="btn btn-primary btn-round" value="Upload">
                       </div>
                     </div>
@@ -141,7 +146,7 @@
                             <div class="form-group">
                               <label>Upload Test Data:</label>
                               <input type="file" name="testdata" id="testdata" multiple>
-                              <label class="custom-file-testdata" for="testdata"></label>
+                              <label class="custom-file-testdata" for="testdata" id="data"></label>
                               <input type="submit" class="btn btn-primary btn-round" value="Upload">
                               
                             </div>
@@ -151,7 +156,7 @@
                                   <label>Upload Test Cases:</label>
                                   <input type="file" name="testcase"  id="testcase" multiple>
                                
-                                  <label class="custom-file-testcase" for="testcase"></label>
+                                  <label class="custom-file-testcase" for="testcase" id="case"></label>
                                   <input type="submit" class="btn btn-primary btn-round" value="Upload">
                                 </div>
                               </div>
@@ -162,10 +167,16 @@
                           </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round">Add Project</button>
+                      <button type="submit" class="btn btn-primary btn-round">Update Project</button>
                     </div>
+                 
                   </div>
                 </form>
+                <div class="row">
+                <div class="update ml-auto mr-auto">
+                  <button type="submit" onclick="deleteProject()" class="btn btn-primary btn-round" style="background-color:crimson">Delete Project</button>
+                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -179,8 +190,8 @@
   <script src="js/core/popper.min.js"></script>
   <script src="js/core/bootstrap.min.js"></script>
   <script src="js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+   <!-- Google Maps Plugin   
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
   <script src="js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
@@ -190,6 +201,73 @@
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="demo/demo.js"></script>
   <script>
+$( document ).ready(function() {
+let dropdown = $('#locality-dropdown');
+
+dropdown.empty();
+
+dropdown.append('<option selected="true" disabled>Choose Project</option>');
+dropdown.prop('selectedIndex', 0);
+
+const url = '/getprojects';
+
+// Populate dropdown with list of provinces
+$.getJSON(url, function (data) {
+  $.each(data, function (key, entry) {
+    dropdown.append($('<option></option>').attr('value', entry).text(entry));
+  })
+});
+
+    });
+
+
+    //$(this).find('option:selected').attr("name");
+
+function deleteProject(){
+  var d = $("#locality-dropdown").find('option:selected').attr("value");
+  console.log(d);
+  var data = {};
+  data.name=d;
+  $.ajax({
+    url: '/editproject',
+    method: 'DELETE',
+    data:data,
+    // contentType: 'application/json',
+    // dataType: "json",
+    success: function(result) {
+       if(result == "success"){
+         alert("Successfully Deleted:" + d); 
+         window.location.href = "http://localhost:3000/projects";
+       }
+       else {
+         alert("Some error occured");
+       }
+    },
+    error: function(request,msg,error) {
+        alert("Not able to submit request");
+    }
+  });
+}
+
+
+$('#locality-dropdown').change( function() {
+   $(this).find(":selected").each(function () {
+            var url="getproject?name="+ $(this).val();
+            $.get(url, function(data, status){
+
+              document.getElementById('project').value = data.name;
+              document.getElementById('description').value = data.description;
+              document.getElementById('link1').value = data.link1;
+              document.getElementById('link2').value = data.link2;
+              $('#document').next('.custom-file-document').html(data.document);
+              document.getElementById('data').value = data.testdata;
+              document.getElementById('case').value = data.testcase;
+              console.log(data);
+            });
+    });
+ });
+
+
 $('#document').on('change',function(){
                 //get the file name
                 var fileName = $(this).val();
@@ -218,6 +296,8 @@ $('#document').on('change',function(){
                 $(this).next('.custom-file-testdata').html(t);
             });
   </script>
+
+
 </body>
 
 </html>

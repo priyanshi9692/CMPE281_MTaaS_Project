@@ -41,6 +41,11 @@ router.post('/register', function(req, res, next) {
   client.email=req.body.email;
   client.username=req.body.username;
   client.password=req.body.pass;
+  client.address=req.body.address;
+  client.city=req.body.city;
+  client.state=req.body.state;
+  client.zipcode=req.body.zipcode;
+
   MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
     if(!err) {
       console.log("We are connected");
@@ -51,7 +56,7 @@ router.post('/register', function(req, res, next) {
       if(err)throw err;
 
       
-    res.send("Successfully inserted");
+    return res.redirect("/dashboard");
       }); 
 });
 });
