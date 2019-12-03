@@ -50,14 +50,6 @@ router.get('/profile', function(req, res, next) {
     return res.redirect("/");
   });
 
-  router.get('/chat', function(req, res, next) {
-    if (req.session && req.session.user) {     
-        return res.render('chat',{
-          user:req.session.user.name
-        });    
-    }
-    return res.redirect("/");
-  });
 
   router.post('/addproject', function(req,res){
         var form = new formidable.IncomingForm();
