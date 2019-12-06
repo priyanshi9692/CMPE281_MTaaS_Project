@@ -98,7 +98,7 @@ router.get('/profile', function(req, res, next) {
                 }); 
             });  
     });
-        res.redirect("http://localhost:3000/dashboard");
+        res.redirect("/dashboard");
   });
 
     /*GET All Project Names */

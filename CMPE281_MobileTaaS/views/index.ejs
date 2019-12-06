@@ -75,7 +75,7 @@
 							</button>
 						</div>
 
-						<a href="http://localhost:3000/register" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
+						<a href="/register" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
 							Sign Up
 							<i class="fa fa-long-arrow-right m-l-5"></i>
 						</a>
@@ -116,7 +116,7 @@ function loginInfo(){
     data:login,
     success: function(result){
         if(result=="success"){
-            window.location.href = 'http://localhost:3000/dashboard';
+            window.location.href = '/dashboard';
         } else{
         alert(result);
         }
