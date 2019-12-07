@@ -22,7 +22,7 @@ router.get('/profile', function(req, res, next) {
   router.get('/projects', function(req, res, next) {
     if (req.session && req.session.user) {
       if(req.session.user.type=="tester"){
-        return res.render('task_progress',{
+        return res.render('projects_tester',{
           user:req.session.user.name
         });
       } else if(req.session.user.type=="projectmanager") {
