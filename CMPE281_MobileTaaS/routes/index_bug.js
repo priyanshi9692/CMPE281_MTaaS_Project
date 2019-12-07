@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var MongoClient= require('mongodb').MongoClient;
+var formidable = require('formidable');
+var url = "mongodb://localhost:27017/mobile_taas";
 
 /* Adding a bug API */
-router.post('./routes/addabug', function(req, res, next) {
+router.post('/tester/addabug', function(req, res, next) {
   console.log(req.body);
   var Bug={};
   Bug.Bug_ID=req.body.Bug_ID;
@@ -33,8 +35,8 @@ router.post('./routes/addabug', function(req, res, next) {
 });
 });
 
-/* Search for a bug API */
-router.get('./routes/searchabug', function(req, res, next) {
+/* Search for a bug API 
+router.get('/tester/searchabug', function(req, res, next) {
     var Bug={};
     var ID=req.query.Bug_ID;
     var product=req.query.product;
@@ -60,10 +62,45 @@ router.get('./routes/searchabug', function(req, res, next) {
      
         }); 
   });
+  });*/
+
+  /* GET Bug Details */
+  //12-07-2019//
+router.get('/tester/getbug', function(req, res, next) {
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("mobile_taas");
+      var query = { name:req.query.name };
+      dbo.collection("bug").findOne(query,function(err, result) {
+        if (err) throw err;
+        //console.log(result);
+        console.log(result);
+        res.send(result);
+        return;
+      });
+    }); 
+  });
+  
+  router.get('/tester/getallbugs', function(req, res, next) {
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("mobile_taas");
+      var info = {
+        "data":[]
+      };
+      dbo.collection("bug").find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        info.data = result;
+        res.send(info);
+  
+        return;
+      });
+    }); 
   });
 
-  /* Update a bug API */
-router.put('./routes/updateabug', function(req, res, next) {
+  /* Update a bug API 
+router.put('/tester/updateabug', function(req, res, next) {
     var Bug={};
     var ID=req.query.Bug_ID;
     var product=req.query.product;
@@ -80,14 +117,14 @@ router.put('./routes/updateabug', function(req, res, next) {
       }
       var dbo = db.db("mobile_taas");
       criteria={ID=Bug.Bug_ID,product=Bug.product,component=Bug.component};
-      update={Bug.version=updated_version,Bug.priority=updated_priority,Bug.summary=updated_summary,Bug.status=status,Bug.date_modified=date_modified};
+      update={Bug.version=updated_version;Bug.priority=updated_priority,Bug.summary=updated_summary,Bug.status=status,Bug.date_modified=date_modified};
 
       
       dbo.collection("Bug").find({}).toArray(function(err, result) {
         if (err) throw err
         for(var i=0;i<result.length;i++){
 
-            dbo.collection("Bug").updateOne(criteria,update)
+            dbo.collection("Bug").find(criteria,update)
             console.log(Bug);
             return res.send("Bug Successfully updated");
          
@@ -96,10 +133,35 @@ router.put('./routes/updateabug', function(req, res, next) {
      
         }); 
   });
+  });*/
+
+  /* UPDATE/ PUT Bug Details */
+  //12-07-2019//
+router.post('/tester/editbug', function(req, res) {
+    console.log("body",req.body);
+    const form = JSON.parse(JSON.stringify(req.body));
+      MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("mobile_taas");
+        var query = { name:form.name };
+        var newvalues = { $set: form };
+        dbo.collection("bug").updateOne(query,newvalues,function(err, result) {
+          if (err) throw err;
+          //console.log(result);
+          req.session.user.name=form.name;
+          console.log(result);
+          //res.send(result);
+          //return;
+          return res.redirect("/tester");
+  
+        });
+      }); 
+  
   });
 
-  /* Delete a bug API */
-router.put('./routes/deleteabug', function(req, res, next) {
+  /* Delete a bug API 
+  
+router.put('/tester/deleteabug', function(req, res, next) {
     var Bug={};
     var ID=req.query.Bug_ID;
     var product=req.query.product;
@@ -124,5 +186,27 @@ router.put('./routes/deleteabug', function(req, res, next) {
      
         }); 
   });
+  });*/
+
+  /* DELETE Bug */
+  //12-07-2019//
+router.delete('/tester/editbug',function(req,res){
+    console.log("delete:",req.body);
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("mobile_taas");
+      var myquery = { name: req.body.name };
+    dbo.collection("bug").deleteOne(myquery, function(err, obj) {
+      if (err) { 
+        console.log(err);
+        return res.send("fail");  
+      }
+      console.log("1 document deleted");
+      db.close();
+      return res.send("success");
+    });
   });
+  });
+
+
   module.exports = router;
