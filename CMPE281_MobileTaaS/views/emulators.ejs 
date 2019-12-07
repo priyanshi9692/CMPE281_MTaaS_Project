@@ -59,18 +59,18 @@
               <p>Profile</p>
             </a>
           </li>
+          <li>
+              <a href="/project_bugs">
+               <i class="nc-icon nc-settings"></i>
+               <p>Bugs</p>
+              </a>
+            </li>
           <li class="active ">
               <a href="/addemulator">
                 <i class="nc-icon nc-laptop"></i>
                 <p>Emulator</p>
               </a>
             </li>
-          <li>
-            <a href="/adddevice">
-             <i class="nc-icon nc-mobile"></i>
-             <p>Devices</p>
-            </a>
-          </li>
           <li>
               <a href="/bill">
                 <i class="nc-icon nc-credit-card"></i>
