@@ -7,16 +7,12 @@ var url = "mongodb://localhost:27017/mobile_taas";
 /* Adding a bug API */
 router.post('/tester/addabug', function(req, res, next) {
   console.log(req.body);
-  var Bug={};
+    var Bug={};
   Bug.Bug_ID=req.body.Bug_ID;
-  Bug.product=req.body.product;
   Bug.component=req.body.component;
   Bug.version=req.body.version;
   Bug.summary=req.body.summary;
-  Bug.alias=req.body.alias;
   Bug.priority=req.body.priority;
-  Bug.rep_platform=req.body.rep_platform;
-  Bug.op_sys=req.body.op_sys;
   Bug.date_created=Date();
   Bug.date_modified=req.body.date;
   Bug.status=req.body.status;
