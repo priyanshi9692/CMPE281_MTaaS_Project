@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Bugs
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img src="img/priyanshi.jpg">
+          </div>
+        </a>
+        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+          <%= user %>
+          <!-- <div class="logo-image-big">
+            <img src="img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a href="/dashboard">
+              <i class="nc-icon nc-bank"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="active "> 
+              <a href="/add">
+            <i class="nc-icon nc-cloud-upload-94"></i>
+            <p>Add Project</p>
+          </a></li>
+         
+          <li>
+            <a href="/projects">
+              <i class="nc-icon nc-tap-01"></i>
+              <p>Update Project</p>
+            </a>
+          </li>
+          <li>
+          <li>
+            <a href="/profile">
+              <i class="nc-icon nc-single-02"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li>
+            <a href="/chat">
+              <i class="nc-icon nc-chat-33"></i>
+              <p>Community Chat</p>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      
+            <%- include nav.ejs %>
+      <!-- <div class="panel-header panel-header-sm">
+
+
+</div> -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-user">
+              <div class="card-header">
+                <h5 class="card-title">Add a Bug</h5>
+              </div>
+              <div class="card-body">
+                <form action="/addproject" method="post" enctype="multipart/form-data">//
+                  <div class="row">
+                    <div class="col-md-5 pr-1">
+
+                      <div class="form-group">
+                        <label>Bug ID</label>
+                        <input type="text" class="form-control" placeholder="Bug ID" id="BugID" name ="BugID">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5 pr-1">
+
+                      <div class="form-group">
+                        <label>Component</label>
+                        <input type="text" class="form-control" placeholder="Component" id="Component" name ="Component">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 pr-1">
+
+                      <div class="form-group">
+                        <label>version</label>
+                        <input type="text" class="form-control" placeholder="version" id="version" name ="version">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <div class="form-group">
+                        <label>summary</label>
+                        <input type="text" class="form-control" placeholder="summary" id="summary" name ="summary">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 pr-1">
+
+                      <div class="form-group">
+                        <label>Priority</label>
+                        <input type="text" class="form-control" placeholder="Priority" id="Priority" name ="Priority">
+                      </div>
+                    </div>
+                  </div>
+                 
+                  <div class="row">
+                    <div class="col-md-2 pr-1">
+
+                      <div class="form-group">
+                        <label>date_modified</label>
+                        <input type="text" class="form-control" placeholder="date_modified" id="date_modified" name ="date_modified">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-md-2 pr-1">
+                          <div class="form-group">
+                            <label>status</label>
+                            <textarea class="form-control textarea" id="status" name ="status"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                                  
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Upload Documentation:</label>
+                        <input type="file" name="document" id="document" multiple>
+              
+                        <label class="custom-file-document" for="document"></label>
+                        <input type="submit" class="btn btn-primary btn-round" value="Upload">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                              <label>Upload Test Data:</label>
+                              <input type="file" name="testdata" id="testdata" multiple>
+                              <label class="custom-file-testdata" for="testdata"></label>
+                              <input type="submit" class="btn btn-primary btn-round" value="Upload">
+                              
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Upload Test Cases:</label>
+                                  <input type="file" name="testcase"  id="testcase" multiple>
+                               
+                                  <label class="custom-file-testcase" for="testcase"></label>
+                                  <input type="submit" class="btn btn-primary btn-round" value="Upload">
+                                </div>
+                              </div>
+                  </div>
+             
+                      <div class="row">
+                            
+                          </div>
+                  <div class="row">
+                    <div class="update ml-auto mr-auto">
+                      <button type="submit" class="btn btn-primary btn-round">Add Bug</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%- include footer.ejs %>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="js/core/jquery.min.js"></script>
+  <script src="js/core/popper.min.js"></script>
+  <script src="js/core/bootstrap.min.js"></script>
+  <script src="js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="demo/demo.js"></script>
+  <script>
+$('#document').on('change',function(){
+                //get the file name
+                var fileName = $(this).val();
+                var t = fileName.split("\\");
+                t = t[t.length-1];
+                console.log(t);
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-document').html(t);
+            });
+            $('#testcase').on('change',function(){
+                //get the file name
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                var t = fileName.split("\\");
+                t = t[t.length-1];
+                console.log(t);
+                $(this).next('.custom-file-testcase').html(t);
+            });
+            $('#testdata').on('change',function(){
+                //get the file name
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                var t = fileName.split("\\");
+                t = t[t.length-1];
+                console.log(t);
+                $(this).next('.custom-file-testdata').html(t);
+            });
+  </script>
+</body>
+
+</html>
