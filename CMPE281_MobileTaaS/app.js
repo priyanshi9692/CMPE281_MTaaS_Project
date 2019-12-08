@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var projectRouter = require('./routes/project');
 var profileRouter = require('./routes/profile');
 var letschatRouter=require('./routes/letschat');
+var testerRouter=require('./routes/tester');
 var app = express();
 
 // view engine setup
@@ -25,10 +26,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// var app = express().configure(function () {
+//   this.use('/public', express.static('public')); // <-- This right here
+// });
+
 app.use('/', indexRouter);
 app.use('/', projectRouter);
 app.use('/', profileRouter);
 app.use('/', letschatRouter);
+app.use('/', testerRouter);
 const port = 3000;
 
 // catch 404 and forward to error handler

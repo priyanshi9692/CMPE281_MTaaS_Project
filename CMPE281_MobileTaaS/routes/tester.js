@@ -45,6 +45,85 @@ router.post('/edittesterprofile', function(req, res) {
 });
 
 
+router.get('/download-docs', function(req, res){
+  console.log(req.query);
+ const file = "/Users/Piyusman/Desktop/Programming_Projects/CMPE281_MTaaS_Project/CMPE281_MobileTaaS/public/upload/" ;
+ //
+ console.log(file);
+ //res.download(file,req.query.doc); // Set disposition and send it.
+});
+
+
+router.get('/getLogin', function(req, res){
+  res.send(req.session.user.username);
+ //res.download(file,req.query.doc); // Set disposition and send it.
+});
+
+
+router.post('/add-tester', function(req, res) {
+  console.log("body",req.body);
+  var arr =[];
+  arr.push(req.session.user.username);
+  //console.log(testerEnrollment);
+  MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
+    if(!err) {
+    console.log("We are connected");
+    }
+    var query = { "documentation": req.body.documentation };
+    var update = { $push: { "tester": arr[0] } } ;
+
+    var dbo = db.db("mobile_taas");
+    dbo.collection("project_details").updateOne(query,update,function(err, result) {
+      if (err) throw err;
+      res.send("success");
+    });
+
+  });
+});
+
+
+router.post('/add-tester', function(req, res) {
+  console.log("body",req.body);
+  var arr =[];
+  arr.push(req.session.user.username);
+  //console.log(testerEnrollment);
+  MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
+    if(!err) {
+    console.log("We are connected");
+    }
+    var query = { "documentation": req.body.documentation };
+    var update = { $push: { "tester": arr[0] } } ;
+
+    var dbo = db.db("mobile_taas");
+    dbo.collection("project_details").updateOne(query,update,function(err, result) {
+      if (err) throw err;
+      res.send("success");
+    });
+
+  });
+});
+
+
+router.delete('/remove-tester', function(req, res) {
+  console.log("body",req.body);
+  var arr =[];
+  arr.push(req.session.user.username);
+  //console.log(testerEnrollment);
+  MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
+    if(!err) {
+    console.log("We are connected");
+    }
+    var query = { "documentation": req.body.documentation };
+    var update = { $pull: { "tester": arr[0] } } ;
+
+    var dbo = db.db("mobile_taas");
+    dbo.collection("project_details").updateOne(query,update,function(err, result) {
+      if (err) throw err;
+      res.send("success");
+    });
+
+  });
+});
 
 
 module.exports = router;

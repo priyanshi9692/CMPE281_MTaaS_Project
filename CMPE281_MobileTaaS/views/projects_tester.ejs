@@ -19,6 +19,7 @@
   <link href=" css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href=" demo/demo.css" rel="stylesheet" />
+  
 </head>
 
 <body class="">
@@ -90,12 +91,7 @@
     </div>
     <div class="main-panel">
             <%- include nav.ejs %>
-      <!-- <div class="panel-header panel-header-lg">
-
-  <canvas id="bigDashboardChart"></canvas>
-
-
-</div> -->
+  
 <div class="content">
          
           <table id="project-table" class="cell-border" style="width:100%">
@@ -104,15 +100,15 @@
                     <th>Project Name</th>
                     <th>App Link</th>
                     <th>Test Documentation</th>
-                    <th></th>  
-                    <th></th>
+                    <th>Status</th>  
+                    <th>Bugs</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                   
                 </tr>
-            </tbody>>
+            </tbody>
             </table>
        
        
@@ -143,26 +139,34 @@
   var connectProjectTable;
 $(document).ready(function() {
   //var connectProjectTable=$('#project-table).DataTable();
-
-  
+  console.log("Hello");
+  $.ajax({
+          url: '/getLogin',
+          method: 'GET',
+          success: function(result) {
+console.log(result);
   connectProjectTable = $('#project-table').DataTable( {
   "ajax": {
     "url": "getAllProjects",
     "type": "GET"
   },
-  
+
   "columns": [
             { "data": "name" },
-            { "data": "link1" },
-            { "data": "documentation" },
-            { "data": "is_joined",
+            { "data": "link" },
+            { "data": "documentation" ,
             "render": function (data, type, row) {
-              console.log(row.is_joined);
-              if(row.is_joined==false){
-                return "<button type='button' class='button-2'>Join</button> ";
+              return  '<a href="/uploads/' + data + '" target="_blank">'+data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+            }
+             },
+            { "data": "status",
+            "render": function (data, type, row) {
+              
+                if(data==true){
+                return "<button type='button' class='button-2'>Joined</button> ";
               }
               else {
-                return "<button type='button' class='button-2' style='background-color:red'>joined</button> ";
+                return "<button type='button' class='button-2' style=''>Join</button> ";
               }
               }
             },
@@ -171,30 +175,34 @@ $(document).ready(function() {
                         className: "center",
                         defaultContent: '<a href= "/project_bugs"><button class="btn btn-danger" id=@TableRowId ><i class="fa fa-arrow-right"></i></button></a>'
                         //defaultContent: '<button onclick="myFunction()" class="btn btn-danger" id=@TableRowId ><i class="fa fa-arrow-right"></i></button>'
-                    }
+                    },
             //{ "data": "testcases" },
             //{ "data": "testcases" }
         ],
 
         
     });
+  }    
+  })
+
+  });
 
   
-  $('#project-table').on('click', 'tbody tr', function (e) {
+  $('#project-table').on('click', 'tbody tr td:nth-last-child(2)', function (e) {
       
       //var now = this.rowIndex;
       var now = this;
       var d =   connectProjectTable.row(this).data();
-      alert(d.is_joined);
+      //alert(d.is_joined);
       console.log(d);
-      if(d.is_joined==false){ 
-        $.ajax({url: "join_project",
+      if(d.status==false){ 
+        $.ajax({url: "add-tester",
                 type: "POST",
                 data:d,
                 success: function(result){
-                  if(result){
+                  if(result = "success"){
 			              alert("Successfully connected.");
-                  
+                  window.location.href="/projects";
                   } else{
 		                alert("some error occured");
 		                window.location.href='home';
@@ -203,14 +211,14 @@ $(document).ready(function() {
           })
       }else{
         $.ajax({
-          url: '/disconnect-switch',
+          url: '/remove-tester',
           method: 'DELETE',
           data:d,
   
           success: function(result) {
           if(result == "success"){
-            alert("Successfully Disconnected:" + d.device_name); 
-            
+            alert("You are no longer testing this project"); 
+            window.location.href="/projects";
           }
           else {
             alert("Some error occured");
@@ -227,6 +235,31 @@ $(document).ready(function() {
     })
 
 
+
+
+    $('#project-table').on('click', 'tbody tr td:nth-last-child(3)', function (e) {
+      
+      //var now = this.rowIndex;
+      var now = this;
+      var d =   connectProjectTable.row(this).data();
+      console.log(d);
+     var documentation ={};
+     documentation.doc=d.documentation;
+        $.ajax({url: "download-docs",
+                type: "GET",
+                data:documentation,
+                success: function(result){
+                  if(result){
+			              
+                  
+                  } else{
+		                alert("some error occured");
+		                window.location.href='home';
+                }
+               }
+          })
+    })
+
     //     const url = '/getprojects';
 
 // Populate dropdown with list of provinces
@@ -241,7 +274,6 @@ $(document).ready(function() {
     //$("div").click(function(){
    //alert("段落被点击了。");
    // });
-    });
  
   
   </script>
