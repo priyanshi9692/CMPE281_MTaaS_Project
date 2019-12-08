@@ -6,6 +6,8 @@ var logger = require('morgan');
 var session = require('client-sessions');
 var indexRouter = require('./routes/index');
 var projectRouter = require('./routes/project');
+var profileRouter = require('./routes/profile');
+var letschatRouter=require('./routes/letschat');
 var app = express();
 
 // view engine setup
@@ -25,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/', projectRouter);
+app.use('/', profileRouter);
+app.use('/', letschatRouter);
 const port = 3000;
 
 // catch 404 and forward to error handler
