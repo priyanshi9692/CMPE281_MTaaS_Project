@@ -36,20 +36,6 @@ router.get('/dashboard', function(req, res, next) {
 router.post('/register', function(req, res, next) {
   console.log(req.body);
   var client={};
-
-  if (req.session && req.session.user) {
-    if(req.session.user.type=="tester"){
-      client.usertype=req.body.usertype;
-      client.user_name=req.body.user_name;
-      client.email=req.body.email;
-      client.first_name=req.body.first_name;
-      client.last_name=req.body.last_name;
-      client.address=req.body.address;
-      client.city=req.body.city;
-      client.country=req.body.country;
-      client.zipcode=req.body.zipcode;
-      client.skill=req.body.skill;
-    } else if(req.session.user.type=="projectmanager") {
       client.usertype=req.body.usertype;
       client.name=req.body.name;
       client.email=req.body.email;
@@ -59,11 +45,9 @@ router.post('/register', function(req, res, next) {
       client.city=req.body.city;
       client.state=req.body.state;
       client.zipcode=req.body.zipcode;
-    }
-  }
- 
+      client.test = [];
+    
   
-
   MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
     if(!err) {
       console.log("We are connected");

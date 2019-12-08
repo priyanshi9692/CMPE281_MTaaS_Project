@@ -85,6 +85,7 @@ router.get('/profile', function(req, res, next) {
             project.documentation = pro[4];
             project.testdata = pro[5];
             project.testcases = pro[6];
+            project.tester = [];
             console.log(project);
             console.log(pro);
             MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
@@ -137,6 +138,8 @@ router.get('/getproject', function(req, res, next) {
   }); 
 });
 
+
+
 router.get('/getAllprojects', function(req, res, next) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
@@ -147,7 +150,20 @@ router.get('/getAllprojects', function(req, res, next) {
     dbo.collection("project_details").find({}).toArray(function(err, result) {
       if (err) throw err;
       console.log(result);
-      info.data = result;
+      for(var i=0;i<result.length;i++){
+        var values = {}
+        values.documentation= result[i].documentation;
+        values.link = result[i].link1;
+        values.name = result[i].name;
+        values.id=result[i]._id;
+        if(result[i].tester.includes(req.session.user.username)){
+          values.status = true;
+        }
+        else {
+          values.status =false;
+        }
+        info.data.push(values);
+      }
       res.send(info);
 
       return;
