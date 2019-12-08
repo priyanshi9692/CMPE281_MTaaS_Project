@@ -26,7 +26,7 @@ router.get('/profile', function(req, res, next) {
   router.get('/projects', function(req, res, next) {
     if (req.session && req.session.user) {
       if(req.session.user.type=="tester"){
-        return res.render('tester_profile',{
+        return res.render('projects_tester',{
           user:req.session.user.name
         });
       } else if(req.session.user.type=="projectmanager") {
@@ -155,6 +155,45 @@ router.get('/getAllprojects', function(req, res, next) {
   }); 
 });
 
+router.post('/join_project', function(req, res) {
+  console.log("body",req.body);
+  var testerEnrollment = {};
+  testerEnrollment.name = req.body.name;
+  testerEnrollment.documentation = req.body.documentation;
+  testerEnrollment.is_joined = true;
+  console.log(testerEnrollment);
+  MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
+    if(!err) {
+    console.log("We are connected");
+    }
+    var dbo = db.db("mobile_taas");
+    dbo.collection("tester_enrollments").insertOne(testerEnrollment, function(err, res) {
+        if(err)throw err;
+      //res.send("Successfully inserted new Project");
+        }); 
+    });  
+  // const form = JSON.parse(JSON.stringify(req.body));
+  //   MongoClient.connect(url, function (err, db) {
+  //     if (err) throw err;
+  //     var dbo = db.db("mobile_taas");
+  //     var query = { username:req.session.user.username };
+  //     var newvalues = { $set: testerEnrollment};
+      
+
+  //     dbo.collection("tester_enrollments").updateOne(query,newvalues,function(err, result) {
+  //       if (err) throw err;
+  //       console.log(result);
+  //       req.session.user.name=form.user_name;
+  //       console.log(result);
+  //       //res.send(result);
+  //       //return;
+  //       return res.redirect("/tester_profile");
+
+  //     });
+  //   }); 
+  res.redirect("http://localhost:3000/projects");
+});
+
 /* UPDATE/ PUT Project Details */
 router.post('/editproject', function(req, res) {
   console.log("body",req.body);
@@ -196,5 +235,41 @@ router.delete('/editproject',function(req,res){
 });
 });
   module.exports = router;
+
+
+
+
+
+  //**************** for Tester********************
+  /*jump to Emulators*/
+  router.get('/addemulator', function(req, res, next) {
+    if (req.session && req.session.user) {
+      if(req.session.user.type=="tester"){
+        return res.render('emulators',{
+          user:req.session.user.name
+        });
+      } else if(req.session.user.type=="projectmanager") {
+        return res.render('addprojects',{
+          user:req.session.user.name
+        });
+      }
+    }
+    return res.redirect("/");
+  });
+ /*jump to Bugs */
+ router.get('/project_bugs', function(req, res, next) {
+  if (req.session && req.session.user) {
+    if(req.session.user.type=="tester"){
+      return res.render('bugs',{
+        user:req.session.user.name
+      });
+    } else if(req.session.user.type=="projectmanager") {
+      return res.render('bugs',{
+        user:req.session.user.name
+      });
+    }
+  }
+  return res.redirect("/");
+});
 
   

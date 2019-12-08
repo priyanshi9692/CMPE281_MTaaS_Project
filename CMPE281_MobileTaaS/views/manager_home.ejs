@@ -155,23 +155,27 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-clock-o"></i> In the last hour
+                <div class="card-body ">
+                  <table id="projects-table" class="cell-border" style="width:100%">
+                    <thead>
+                        <tr>
+                          
+                            <th>Project Name</th>
+                          
+                            <th>App Link</th>
+         
+                            <th>Documentation</th>
+                            <th>Test Data</th>
+                            <th>Test Cases</th>
+
+                        </tr>
+                    </thead>
+                    </table>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-single-02 text-primary"></i>
-                    </div>
+                <div class="card-footer ">
+                  <hr>
+                  <div class="stats">
+                    <i class="fa fa-history"></i> 
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
@@ -313,7 +317,7 @@
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src=" demo/demo.js"></script>
   <script>
-    $(document).ready(function() {
+  $(document).ready(function() {
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
 
