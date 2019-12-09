@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="main-panel">
-            <%- include nav.ejs %>
+            <%- include nav_tester.ejs %>
   
 <div class="content">
          
@@ -139,7 +139,6 @@
   var connectProjectTable;
 $(document).ready(function() {
   //var connectProjectTable=$('#project-table).DataTable();
-  console.log("Hello");
   $.ajax({
           url: '/getLogin',
           method: 'GET',
@@ -147,7 +146,7 @@ $(document).ready(function() {
 console.log(result);
   connectProjectTable = $('#project-table').DataTable( {
   "ajax": {
-    "url": "getAllProjects",
+    "url": "getprojectsfortest",
     "type": "GET"
   },
 
@@ -163,10 +162,10 @@ console.log(result);
             "render": function (data, type, row) {
               
                 if(data==true){
-                return "<button type='button' class='button-2'>Joined</button> ";
+                return "<button type='button' class ='btn btn-primary' style='cursor: pointer;'>Joined</button> ";
               }
               else {
-                return "<button type='button' class='button-2' style=''>Join</button> ";
+                return "<button type='button' class ='btn btn-secondary'>Join</button> ";
               }
               }
             },
@@ -176,8 +175,6 @@ console.log(result);
                         defaultContent: '<a href= "/project_bugs"><button class="btn btn-danger" id=@TableRowId ><i class="fa fa-arrow-right"></i></button></a>'
                         //defaultContent: '<button onclick="myFunction()" class="btn btn-danger" id=@TableRowId ><i class="fa fa-arrow-right"></i></button>'
                     },
-            //{ "data": "testcases" },
-            //{ "data": "testcases" }
         ],
 
         
@@ -201,7 +198,7 @@ console.log(result);
                 data:d,
                 success: function(result){
                   if(result = "success"){
-			              alert("Successfully connected.");
+			              alert("You are now testing this Project.Thanks for joining.");
                   window.location.href="/projects";
                   } else{
 		                alert("some error occured");
@@ -236,9 +233,7 @@ console.log(result);
 
 
 
-
     $('#project-table').on('click', 'tbody tr td:nth-last-child(3)', function (e) {
-      
       //var now = this.rowIndex;
       var now = this;
       var d =   connectProjectTable.row(this).data();

@@ -45,9 +45,15 @@ router.post('/register', function(req, res, next) {
       client.city=req.body.city;
       client.state=req.body.state;
       client.zipcode=req.body.zipcode;
-      client.test = [];
+   
+      
+    var usersession={};
     
-  
+      usersession.name = req.body.name;
+      usersession.username=req.body.username;
+      usersession.type=req.body.usertype;
+      console.log(client);
+      req.session.user = usersession;
   MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
     if(!err) {
       console.log("We are connected");

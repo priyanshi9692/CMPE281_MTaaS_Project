@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const {ObjectId} = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 var formidable = require('formidable');
 var url = "mongodb://localhost:27017/mobile_taas";
@@ -19,7 +20,6 @@ router.get('/profile', function(req, res, next) {
       }
     }
     return res.redirect("/");
-    
   });
   
   /*GET UI page */
@@ -86,6 +86,7 @@ router.get('/profile', function(req, res, next) {
             project.testdata = pro[5];
             project.testcases = pro[6];
             project.tester = [];
+            project.owner=req.session.user.username;
             console.log(project);
             console.log(pro);
             MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
@@ -108,12 +109,11 @@ router.get('/profile', function(req, res, next) {
         if (err) throw err;
         var dbo = db.db("mobile_taas");
         var projects=[];
-        dbo.collection("project_details").find({}).toArray(function(err, result) {
+        dbo.collection("project_details").find({owner:req.session.user.username}).toArray(function(err, result) {
           if (err) throw err;
           console.log(result);
-          for(var i=0;i<result.length;i++){
-            projects.push(result[i].name);
-          }
+            projects = result;
+          
           console.log(projects);
           res.send(projects);
           return;
@@ -127,10 +127,10 @@ router.get('/getproject', function(req, res, next) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("mobile_taas");
+    console.log(req.query.name);
     var query = { name:req.query.name };
     dbo.collection("project_details").findOne(query,function(err, result) {
       if (err) throw err;
-      //console.log(result);
       console.log(result);
       res.send(result);
       return;
@@ -147,90 +147,66 @@ router.get('/getAllprojects', function(req, res, next) {
     var info = {
       "data":[]
     };
-    dbo.collection("project_details").find({}).toArray(function(err, result) {
+    dbo.collection("project_details").find({owner:req.session.user.username}).toArray(function(err, result) {
       if (err) throw err;
-      console.log(result);
-      for(var i=0;i<result.length;i++){
-        var values = {}
-        values.documentation= result[i].documentation;
-        values.link = result[i].link1;
-        values.name = result[i].name;
-        values.id=result[i]._id;
-        if(result[i].tester.includes(req.session.user.username)){
-          values.status = true;
-        }
-        else {
-          values.status =false;
-        }
-        info.data.push(values);
-      }
+      info.data= result;
       res.send(info);
-
-      return;
     });
   }); 
 });
 
-router.post('/join_project', function(req, res) {
-  console.log("body",req.body);
-  var testerEnrollment = {};
-  testerEnrollment.name = req.body.name;
-  testerEnrollment.documentation = req.body.documentation;
-  testerEnrollment.is_joined = true;
-  console.log(testerEnrollment);
-  MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
-    if(!err) {
-    console.log("We are connected");
-    }
-    var dbo = db.db("mobile_taas");
-    dbo.collection("tester_enrollments").insertOne(testerEnrollment, function(err, res) {
-        if(err)throw err;
-      //res.send("Successfully inserted new Project");
-        }); 
-    });  
-  // const form = JSON.parse(JSON.stringify(req.body));
-  //   MongoClient.connect(url, function (err, db) {
-  //     if (err) throw err;
-  //     var dbo = db.db("mobile_taas");
-  //     var query = { username:req.session.user.username };
-  //     var newvalues = { $set: testerEnrollment};
-      
 
-  //     dbo.collection("tester_enrollments").updateOne(query,newvalues,function(err, result) {
-  //       if (err) throw err;
-  //       console.log(result);
-  //       req.session.user.name=form.user_name;
-  //       console.log(result);
-  //       //res.send(result);
-  //       //return;
-  //       return res.redirect("/tester_profile");
-
-  //     });
-  //   }); 
-  res.redirect("http://localhost:3000/projects");
-});
 
 /* UPDATE/ PUT Project Details */
 router.post('/editproject', function(req, res) {
-  console.log("body",req.body);
-  const form = JSON.parse(JSON.stringify(req.body));
+  var form = new formidable.IncomingForm();
+  form.parse(req);
+  var project ={};
+  var pro =[];
+  form.on('field', (name, field) => {
+      pro.push(field);
+      console.log('Field', name, field)
+    });
+
+  //   form.on('fileBegin', function (name, file){
+  //     console.log(file.name);
+  //     if(file.name!==undefined && file.name!=" " && file.name !=""){
+  //     var ext = file.name.split(".")[1];
+  //     file.name =  req.session.user.username + "_"+ name + "." + ext;
+  //     pro.push(file.name);
+  //     console.log(file.name);
+  //     }
+  //     //file.path = process.cwd() + '/public/uploads/' + file.name;
+  // });
+
+  // form.on('file', function (name, file){
+  //     //pro.push(file.name);
+  //     console.log('Uploaded ' + file.name);
+  // });
+  form.on('end', () => {
+console.log(pro);
+
+            project.name = pro[0];
+            project.description=pro[1];
+            project.link1=pro[2];
+            project.link2=pro[3];
+            
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
       var dbo = db.db("mobile_taas");
-      var query = { name:form.name };
-      var newvalues = { $set: form };
+      var query = { _id: ObjectId(pro[4])};
+      var newvalues = { $set: project };
       dbo.collection("project_details").updateOne(query,newvalues,function(err, result) {
         if (err) throw err;
         //console.log(result);
-        req.session.user.name=form.name;
-        console.log(result);
+        //console.log(result);
         //res.send(result);
         //return;
-        return res.redirect("/project");
+        return res.redirect("/projects");
 
       });
     }); 
-
+  });
 });
 /* DELETE Project */
 router.delete('/editproject',function(req,res){
@@ -256,36 +232,5 @@ router.delete('/editproject',function(req,res){
 
 
 
-  //**************** for Tester********************
-  /*jump to Emulators*/
-  router.get('/addemulator', function(req, res, next) {
-    if (req.session && req.session.user) {
-      if(req.session.user.type=="tester"){
-        return res.render('emulators',{
-          user:req.session.user.name
-        });
-      } else if(req.session.user.type=="projectmanager") {
-        return res.render('addprojects',{
-          user:req.session.user.name
-        });
-      }
-    }
-    return res.redirect("/");
-  });
- /*jump to Bugs */
- router.get('/project_bugs', function(req, res, next) {
-  if (req.session && req.session.user) {
-    if(req.session.user.type=="tester"){
-      return res.render('bugs',{
-        user:req.session.user.name
-      });
-    } else if(req.session.user.type=="projectmanager") {
-      return res.render('bugs',{
-        user:req.session.user.name
-      });
-    }
-  }
-  return res.redirect("/");
-});
 
   

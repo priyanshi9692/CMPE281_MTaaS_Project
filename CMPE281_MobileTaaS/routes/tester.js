@@ -48,15 +48,15 @@ router.post('/edittesterprofile', function(req, res) {
 router.get('/download-docs', function(req, res){
   console.log(req.query);
  const file = "/Users/Piyusman/Desktop/Programming_Projects/CMPE281_MTaaS_Project/CMPE281_MobileTaaS/public/upload/" ;
- //
+ 
  console.log(file);
- //res.download(file,req.query.doc); // Set disposition and send it.
+ 
 });
 
 
 router.get('/getLogin', function(req, res){
   res.send(req.session.user.username);
- //res.download(file,req.query.doc); // Set disposition and send it.
+
 });
 
 
@@ -82,26 +82,6 @@ router.post('/add-tester', function(req, res) {
 });
 
 
-router.post('/add-tester', function(req, res) {
-  console.log("body",req.body);
-  var arr =[];
-  arr.push(req.session.user.username);
-  //console.log(testerEnrollment);
-  MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
-    if(!err) {
-    console.log("We are connected");
-    }
-    var query = { "documentation": req.body.documentation };
-    var update = { $push: { "tester": arr[0] } } ;
-
-    var dbo = db.db("mobile_taas");
-    dbo.collection("project_details").updateOne(query,update,function(err, result) {
-      if (err) throw err;
-      res.send("success");
-    });
-
-  });
-});
 
 
 router.delete('/remove-tester', function(req, res) {
@@ -124,6 +104,67 @@ router.delete('/remove-tester', function(req, res) {
 
   });
 });
+
+router.get('/getprojectsfortest', function(req, res, next) {
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("mobile_taas");
+    var info = {
+      "data":[]
+    };
+    dbo.collection("project_details").find({}).toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result);
+      for(var i=0;i<result.length;i++){
+        var values = {}
+        values.documentation= result[i].documentation;
+        values.link = result[i].link1;
+        values.name = result[i].name;
+        values.id=result[i]._id;
+        if(result[i].tester.includes(req.session.user.username)){
+          values.status = true;
+        }
+        else {
+          values.status =false;
+        }
+        info.data.push(values);
+      }
+      res.send(info);
+
+      return;
+    });
+  }); 
+});
+router.get('/addemulator', function(req, res, next) {
+  if (req.session && req.session.user) {
+    if(req.session.user.type=="tester"){
+      return res.render('emulators',{
+        user:req.session.user.name
+      });
+    } else if(req.session.user.type=="projectmanager") {
+      return res.render('addprojects',{
+        user:req.session.user.name
+      });
+    }
+  }
+  return res.redirect("/");
+});
+/*jump to Bugs */
+router.get('/project_bugs', function(req, res, next) {
+if (req.session && req.session.user) {
+  if(req.session.user.type=="tester"){
+    return res.render('bugs',{
+      user:req.session.user.name
+    });
+  } else if(req.session.user.type=="projectmanager") {
+    return res.render('bugs',{
+      user:req.session.user.name
+    });
+  }
+}
+return res.redirect("/");
+});
+
 
 
 module.exports = router;
