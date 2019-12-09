@@ -208,7 +208,7 @@
                       </div>
                     </div>
                   </div>
-                 <div class="row">
+                 <!-- <div class="row">
                         <div class="col-md-4">
                           <div class="form-group">
                             <label>Upload Your Resume:</label>
@@ -218,7 +218,7 @@
                             <input type="submit" class="btn btn-primary btn-round" value="Upload">
                           </div>
                         </div>
-                    </div>>
+                    </div>> -->
 
                   <div class="row">
                     <div class="update ml-auto mr-auto">
@@ -262,6 +262,7 @@
         $(this).next('.custom-file-resume').html(t);
     });
 
+
     $( document ).ready(function() { 
 
 $.get("tester_update", function(data, status){
@@ -273,6 +274,7 @@ $.get("tester_update", function(data, status){
   document.getElementById('city').value = data.city;
   document.getElementById('country').value = data.country;
   document.getElementById('zipcode').value = data.zipcode;
+  document.getElementById('company').value = data.company;
   document.getElementById('skill').value = data.skill;
   console.log(data);
 });

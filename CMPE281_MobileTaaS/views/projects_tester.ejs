@@ -147,7 +147,7 @@ $(document).ready(function() {
   
   connectProjectTable = $('#project-table').DataTable( {
   "ajax": {
-    "url": "getAllProjects",
+    "url": "getprojects_tester",
     "type": "GET"
   },
   
@@ -185,7 +185,6 @@ $(document).ready(function() {
       //var now = this.rowIndex;
       var now = this;
       var d =   connectProjectTable.row(this).data();
-      alert(d.is_joined);
       console.log(d);
       if(d.is_joined==false){ 
         $.ajax({url: "join_project",
@@ -193,11 +192,10 @@ $(document).ready(function() {
                 data:d,
                 success: function(result){
                   if(result){
-			              alert("Successfully connected.");
-                  
+			              alert("Successfully join the project.");
+                    window.location.href='/projects';
                   } else{
 		                alert("some error occured");
-		                window.location.href='home';
                 }
                }
           })
