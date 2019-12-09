@@ -10,7 +10,7 @@
 
 </style>
     
-   <title>Bug addition + Update + Edit</title>
+   <title>Bugg addition + Update + Edit</title>
    <div>
     <h2 style="text-align: center;">Bugs</h2>
   </div>
@@ -153,14 +153,14 @@
                         <p class="card-category"></p>
                      </div>
                      <div class="card-body ">
-                        <table id="projects-table" class="cell-border" style="width:100%">
+                        <table id="bug-table" class="cell-border" style="width:100%">
                            <thead>
                               <tr>
                                  <th>Bug ID</th>
                                  <th>Component</th>
-                                 <th>Project Name</th>
                                  <th>Status</th>
                                  <th>Priority</th>
+                                 <th>Summary</th>
                               </tr>
                            </thead>
                         </table>
@@ -183,7 +183,7 @@
                         <h5 class="card-title">Enter Bug details</h5> </div>
                      <div class="card-body">
                         <select id="locality-dropdown" name="locality"> </select>
-                        <form action="/addproject" method="post" enctype="multipart/form-data">
+                        <form action="/addabug" method="post" enctype="multipart/form-data">
                            <div class="row">
                               <div class="col-md-5 pr-1">
                                  <div class="form-group">
@@ -253,13 +253,13 @@
                            <div class="row"> </div>
                            <div class="row">
                               <div class="update ml-auto mr-auto">
-                                 <button type="submit" class="btn btn-primary btn-round">Update Project</button>
+                                 <button type="submit" class="btn btn-primary btn-round">Update Bug</button>
                               </div>
                            </div>
                         </form>
                         <div class="row">
                            <div class="update ml-auto mr-auto">
-                              <button type="submit" onclick="deletebug()" class="btn btn-primary btn-round" style="background-color:crimson">Delete Project</button>
+                              <button type="submit" onclick="deletebug()" class="btn btn-primary btn-round" style="background-color:crimson">Delete Bug</button>
                            </div>
                         </div>
                      </div>
