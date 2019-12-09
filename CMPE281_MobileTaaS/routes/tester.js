@@ -153,8 +153,14 @@ router.get('/addemulator', function(req, res, next) {
 router.get('/project_bugs', function(req, res, next) {
 if (req.session && req.session.user) {
   if(req.session.user.type=="tester"){
+    var project={};
+
+    
+
+
     return res.render('bugs',{
-      user:req.session.user.name
+      user:req.session.user.name,
+      project:project
     });
   } else if(req.session.user.type=="projectmanager") {
     return res.render('bugs',{

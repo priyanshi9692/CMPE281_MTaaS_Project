@@ -15,7 +15,7 @@
     <h2 style="text-align: center;">Bugs</h2>
   </div>
   <div>
-    <p style="text-align: center;">Click on the buttons to perform necessary operation on Bugs:</p>
+    <p style="text-align: center;">Click on the buttons to perform necessary operation on Bugs</p>
   </div>
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -38,6 +38,71 @@
 </head>
 
 <body>
+      <div class="sidebar" data-color="white" data-active-color="danger">
+            <!--
+              Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+          -->
+            <div class="logo">
+              <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+                <div class="logo-image-small">
+                  <img src=" img/priyanshi.jpg">                           
+                </div>
+              </a>
+              <a href="/dashboard" class="simple-text logo-normal">
+                <%= user %>
+                <!-- <div class="logo-image-big">
+                  <img src=" img/logo-big.png">
+                </div> -->
+              </a>
+            </div>
+            <div class="sidebar-wrapper">
+              <ul class="nav">
+                <li>
+                  <a href="/dashboard">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>Dashboard</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="/projects">
+                    <i class="nc-icon nc-single-copy-04"></i>
+                    <p>My Test Progress</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="/profile">
+                    <i class="nc-icon nc-single-02"></i>
+                    <p>Profile</p>
+                  </a>
+                </li>
+                <li class="active" >
+                    <a href="/bugs_tabs">
+                     <i class="nc-icon nc-settings"></i>
+                     <p>Bugs</p>
+                    </a>
+                  </li>
+                <li>
+                    <a href="/addemulator">
+                      <i class="nc-icon nc-laptop"></i>
+                      <p>Emulator</p>
+                    </a>
+                  </li>
+                <li>
+                    <a href="/bill">
+                      <i class="nc-icon nc-credit-card"></i>
+                      <p>Bill</p>
+                    </a>
+                  </li>
+                <li>
+                  <a href="#">
+                    <i class="nc-icon nc-chat-33"></i>
+                    <p>Community Chat</p>
+                  </a>
+                </li>
+                <li>
+              </ul>
+            </div>
+          </div>
     <div style="background-color: #D">
    <div class="bs-example">
       <ul class="nav nav-tabs">

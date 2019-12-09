@@ -1,34 +1,88 @@
 var express = require('express');
 var router = express.Router();
+const {ObjectId} = require('mongodb');
 var MongoClient= require('mongodb').MongoClient;
 var formidable = require('formidable');
 var url = "mongodb://localhost:27017/mobile_taas";
 
+router.get('/bugs_tabs', function(req, res, next) {
+  if (req.session && req.session.user) {
+    if(req.session.user.type=="tester"){
+      console.log("ID",req.query.id);
+      MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("mobile_taas");
+        console.log(ObjectId(req.query.id.toString()));
+        var query = { _id: ObjectId(req.query.id.toString())};
+        dbo.collection("project_details").findOne(query,function(err, result) {
+          if (err) throw err;
+         var project = {}
+         console.log(result);
+         project  = result;
+         console.log(project);
+          return res.render('bugs',{
+            user:req.session.user.name,
+            project:project
+          });
+        });
+      }); 
+
+
+   
+    } else if(req.session.user.type=="projectmanager") {
+      return res.render('projects',{
+        user:req.session.user.name
+      });
+    }
+  } else {
+  return res.redirect("/");
+  }
+});
+
+
 /* Adding a bug API */
-router.post('/tester/addabug', function(req, res, next) {
+router.post('/addabug', function(req, res, next) {
   console.log(req.body);
     var Bug={};
-  Bug.bug_id=req.body.bug_id;
+  Bug.bug_id=req.body.bugid;
   Bug.component=req.body.component;
   Bug.version=req.body.version;
   Bug.summary=req.body.summary;
   Bug.priority=req.body.priority;
-  Bug.date_created=Date();
+  Bug.date_created=new Date();
   Bug.date_modified=req.body.date;
   Bug.status=req.body.status;
-  
+  Bug.tester=req.session.user.username;
+  var arr =[]
+  arr.push(Bug);
   MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
     if(!err) {
-      console.log("We are connected");
+    console.log("We are connected");
     }
+    var query = { _id: ObjectId(req.body.id.toString())};
+    var update = { $push: { "bugs": arr[0] } } ;
+
     var dbo = db.db("mobile_taas");
+    dbo.collection("project_details").updateOne(query,update,function(err, result) {
+      if (err) throw err;
+      res.redirect("/projects");
+    });
+
+  });
+
+
+  // MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
+  //   if(!err) {
+  //     console.log("We are connected");
+  //   }
+  //   var dbo = db.db("mobile_taas");
    
-    dbo.collection("bug").insertOne(bug, function(err, result) {
-      if(err)throw err;
+  //   dbo.collection("bug").insertOne(bug, function(err, result) {
+  //     if(err)throw err;
       
-    res.send("Bug Successfully created");
-      }); 
-});
+  //   res.send("Bug Successfully created");
+  //     }); 
+// });
 });
 
 

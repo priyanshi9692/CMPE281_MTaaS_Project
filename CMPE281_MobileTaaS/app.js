@@ -37,6 +37,7 @@ app.use('/', projectRouter);
 app.use('/', profileRouter);
 app.use('/', letschatRouter);
 app.use('/', testerRouter);
+app.use('/', bugRouter);
 const port = 3000;
 
 // catch 404 and forward to error handler
