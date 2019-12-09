@@ -10,6 +10,7 @@ var profileRouter = require('./routes/profile');
 var letschatRouter=require('./routes/letschat');
 var testerRouter=require('./routes/tester');
 var app = express();
+var bugRouter = require('./routes/bug'); 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
