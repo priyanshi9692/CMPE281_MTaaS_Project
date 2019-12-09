@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="/'''             utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href=" img/apple-icon.png">
+  <link rel="icon" type="image/png" href=" img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Tester Dashboard
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href=" css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href=" css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href=" demo/demo.css" rel="stylesheet" />
+  
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img src=" img/priyanshi.jpg">                            //tester photo
+          </div>
+        </a>
+        <a href="/dashboard" class="simple-text logo-normal">
+          <%= user %>
+          <!-- <div class="logo-image-big">
+            <img src=" img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a href="/dashboard">
+              <i class="nc-icon nc-bank"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="active ">
+            <a href="/projects">
+              <i class="nc-icon nc-single-copy-04"></i>
+              <p>My Test Progress</p>
+            </a>
+          </li>
+          <li>
+            <a href="/profile">
+              <i class="nc-icon nc-single-02"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li>
+              <a href="/project_bugs">
+               <i class="nc-icon nc-settings"></i>
+               <p>Bugs</p>
+              </a>
+            </li>
+          <li>
+              <a href="/addemulator">
+                <i class="nc-icon nc-laptop"></i>
+                <p>Emulator</p>
+              </a>
+            </li>
+          <li>
+              <a href="/bill">
+                <i class="nc-icon nc-credit-card"></i>
+                <p>Bill</p>
+              </a>
+            </li>
+          <li>
+            <a href="#">
+              <i class="nc-icon nc-chat-33"></i>
+              <p>Community Chat</p>
+            </a>
+          </li>
+          <li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+            <%- include nav_tester.ejs %>
+  
+<div class="content">
+         
+          <table id="project-table" class="cell-border" style="width:100%">
+            <thead>
+                <tr>                
+                    <th>Project Name</th>
+                    <th>App Link</th>
+                    <th>Test Documentation</th>
+                    <th>Status</th>  
+                    <th>Bugs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  
+                </tr>
+            </tbody>
+            </table>
+       
+       
+
+
+      <%- include footer.ejs %>
+    
+  </div>
+
+  
+  <!--   Core JS Files   -->
+  <script src=" js/core/jquery.min.js"></script>
+  <script src=" js/core/popper.min.js"></script>
+  <script src=" js/core/bootstrap.min.js"></script>
+  <script src=" js/plugins/perfect-scrollbar.jquery.min.js"></script>
+   <!-- Google Maps Plugin   
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
+  <!-- Chart JS -->
+  <script src=" js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src=" js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src=" js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" type="text/javascript"></script>
+  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src=" demo/demo.js"></script>
+  <script type="text/javascript">
+  var connectProjectTable;
+$(document).ready(function() {
+  //var connectProjectTable=$('#project-table).DataTable();
+  $.ajax({
+          url: '/getLogin',
+          method: 'GET',
+          success: function(result) {
+console.log(result);
+  connectProjectTable = $('#project-table').DataTable( {
+  "ajax": {
+    "url": "getprojectsfortest",
+    "type": "GET"
+  },
+
+  "columns": [
+            { "data": "name" },
+            { "data": "link" },
+            { "data": "documentation" ,
+            "render": function (data, type, row) {
+              return  '<a href="/uploads/' + data + '" target="_blank">'+data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+            }
+             },
+            { "data": "status",
+            "render": function (data, type, row) {
+              
+                if(data==true){
+                return "<button type='button' class ='btn btn-primary' style='cursor: pointer;'>Joined</button> ";
+              }
+              else {
+                return "<button type='button' class ='btn btn-secondary'>Join</button> ";
+              }
+              }
+            },
+            {
+                        data: null,
+                        className: "center",
+                        defaultContent: '<a href= "/project_bugs"><button class="btn btn-danger" id=@TableRowId ><i class="fa fa-arrow-right"></i></button></a>'
+                        //defaultContent: '<button onclick="myFunction()" class="btn btn-danger" id=@TableRowId ><i class="fa fa-arrow-right"></i></button>'
+                    },
+        ],
+
+        
+    });
+  }    
+  })
+
+  });
+
+  
+  $('#project-table').on('click', 'tbody tr td:nth-last-child(2)', function (e) {
+      
+      //var now = this.rowIndex;
+      var now = this;
+      var d =   connectProjectTable.row(this).data();
+      //alert(d.is_joined);
+      console.log(d);
+      if(d.status==false){ 
+        $.ajax({url: "add-tester",
+                type: "POST",
+                data:d,
+                success: function(result){
+                  if(result = "success"){
+			              alert("You are now testing this Project.Thanks for joining.");
+                  window.location.href="/projects";
+                  } else{
+		                alert("some error occured");
+		                window.location.href='home';
+                }
+               }
+          })
+      }else{
+        $.ajax({
+          url: '/remove-tester',
+          method: 'DELETE',
+          data:d,
+  
+          success: function(result) {
+          if(result == "success"){
+            alert("You are no longer testing this project"); 
+            window.location.href="/projects";
+          }
+          else {
+            alert("Some error occured");
+          }
+    },
+    error: function(request,msg,error) {
+  
+    }
+  })
+}
+
+   
+
+    })
+
+
+
+    $('#project-table').on('click', 'tbody tr td:nth-last-child(3)', function (e) {
+      //var now = this.rowIndex;
+      var now = this;
+      var d =   connectProjectTable.row(this).data();
+      console.log(d);
+     var documentation ={};
+     documentation.doc=d.documentation;
+        $.ajax({url: "download-docs",
+                type: "GET",
+                data:documentation,
+                success: function(result){
+                  if(result){
+			              
+                  
+                  } else{
+		                alert("some error occured");
+		                window.location.href='home';
+                }
+               }
+          })
+    })
+
+    //     const url = '/getprojects';
+
+// Populate dropdown with list of provinces
+//$.getJSON(url, function (data) {
+ // console.log(data.length);
+ // var num= data.length;
+ // $("#num").text(num.toString());
+//document.getElementById('num').value=data.length;
+//});
+
+
+    //$("div").click(function(){
+   //alert("段落被点击了。");
+   // });
+ 
+  
+  </script>
+
+</body>
+
+</html>
+    

@@ -36,16 +36,24 @@ router.get('/dashboard', function(req, res, next) {
 router.post('/register', function(req, res, next) {
   console.log(req.body);
   var client={};
-  client.usertype=req.body.usertype;
-  client.name=req.body.name;
-  client.email=req.body.email;
-  client.username=req.body.username;
-  client.password=req.body.pass;
-  client.address=req.body.address;
-  client.city=req.body.city;
-  client.state=req.body.state;
-  client.zipcode=req.body.zipcode;
-
+      client.usertype=req.body.usertype;
+      client.name=req.body.name;
+      client.email=req.body.email;
+      client.username=req.body.username;
+      client.password=req.body.pass;
+      client.address=req.body.address;
+      client.city=req.body.city;
+      client.state=req.body.state;
+      client.zipcode=req.body.zipcode;
+   
+      
+    var usersession={};
+    
+      usersession.name = req.body.name;
+      usersession.username=req.body.username;
+      usersession.type=req.body.usertype;
+      console.log(client);
+      req.session.user = usersession;
   MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
     if(!err) {
       console.log("We are connected");

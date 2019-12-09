@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="/'''             utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href=" img/apple-icon.png">
+  <link rel="icon" type="image/png" href=" img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Tester Dashboard
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href=" css/bootstrap.min.css" rel="stylesheet" />
+  <link href=" css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href=" demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img src=" img/priyanshi.jpg">                            //tester photo
+          </div>
+        </a>
+        <a href="/dashboard" class="simple-text logo-normal">
+          <%= user %>
+          <!-- <div class="logo-image-big">
+            <img src=" img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a href="/dashboard">
+              <i class="nc-icon nc-bank"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="/projects">
+              <i class="nc-icon nc-single-copy-04"></i>
+              <p>My Test Progress</p>
+            </a>
+          </li>
+          <li>
+            <a href="/profile">
+              <i class="nc-icon nc-single-02"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li>
+              <a href="/project_bugs">
+               <i class="nc-icon nc-settings"></i>
+               <p>Bugs</p>
+              </a>
+            </li>
+          <li class="active ">
+              <a href="/addemulator">
+                <i class="nc-icon nc-laptop"></i>
+                <p>Emulator</p>
+              </a>
+            </li>
+          <li>
+              <a href="/bill">
+                <i class="nc-icon nc-credit-card"></i>
+                <p>Bill</p>
+              </a>
+            </li>
+          <li>
+            <a href="#">
+              <i class="nc-icon nc-chat-33"></i>
+              <p>Community Chat</p>
+            </a>
+          </li>
+          <li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+            <%- include nav_tester.ejs %>
+      <!-- <div class="panel-header panel-header-lg">
+
+  <canvas id="bigDashboardChart"></canvas>
+
+
+</div> -->
+
+<div class="content">
+        <div class="card card-nav-tabs card-plain">
+                <div class="card-header card-header-danger">
+                    <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#launch" data-toggle="tab">Launch a new Emulator</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><div class="card-body ">
+                    
+                        <form action="#" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                  <label>Emulator Name</label>
+                                  <input type="text" class="form-control" placeholder="emulator's name">
+                                </div>
+                                
+                                <div class="form-group"> 
+                                        <label for="exampleFormControlSelect1">System</label>
+                                        <div id="check"></div>
+                                        <select data-target="secondList" class="firstList selectFilter">
+                                            <option value="-1">System</option>
+                                            <option data-ref="android" >Android</option>
+                                            <option data-ref="ios" >IOS</option>
+                                            <option data-ref="web" >Web</option>>
+                                        </select>
+                                        <br />
+                                </div>
+                                <div class="form-group"> 
+                                    <label for="exampleFormControlSelect1">Version</label> <br />
+                                        <select data-target="thirdList" class="secondList selectFilter">
+                                            <option value="-1">Version</option>
+                                            <option data-ref="8" data-belong="android" >8.1.0 (API27)</option>
+                                            <option data-ref="8.0" data-belong="android">8.0.0(API26)</option>
+                                            <option data-ref="7.1.2" data-belong="android">7.1.2(API25)</option>
+                                            <option data-ref="7.1" data-belong="android">7.1(API25)</option>
+                                            <option data-ref="7.0" data-belong="android">7.0(API24)</option>
+                                            <option data-ref="6.0.1" data-belong="android">6.0.1(API23)</option>
+                                            <option data-ref="6.0" data-belong="android">6.0(API23)</option>
+                                            <option data-ref="5.1" data-belong="android">5.1(API22)</option>
+                                            <option data-ref="12.4.3" data-belong="ios">ios12.4.3</option>
+                                            <option data-ref="10.3.4" data-belong="ios">ios10.3.4</option>
+                                            <option data-ref="10.3.3" data-belong="ios">ios10.3.3</option>
+                                            <option data-ref="9.3.6" data-belong="ios">ios9.3.6</option>
+                                            <option data-ref="9.3.5" data-belong="ios">ios9.3.5</option>
+                                            <option data-ref="7.1.2" data-belong="ios">ios7.1.2</option>
+                                        </select>
+                                </div>
+                                        <br />
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">RAM Size</label>
+                                    <br />
+                                        <select class="secondList selectFilter">
+                                            <option value="-1">RAM Size</option>
+                                            <option data-belong="android">32M</option>
+                                            <option data-belong="android">64M</option>
+                                            <option data-belong="ios">32M</option>
+                                            <option data-belong="ios">64M</option>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label">Disk Size</label> <br />
+                                        <select class="secondList selectFilter">
+                                                <option value="-1">Disk Size</option>
+                                                <option data-belong="android">128M</option>
+                                                <option data-belong="android">256M</option>
+                                                <option data-belong="ios">128M</option>
+                                                <option data-belong="ios">256M</option>
+                                            </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleFormControlSelect1">number</label>
+                                  <select class="form-control" id="exampleFormControlSelect1">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                                </div>
+                                <div class="row">
+                                        <div class="update ml-auto mr-auto">
+                                          <button type="submit" class="btn btn-primary btn-round" onclick="launch_emu()">launch emulator</button>
+                                        </div>
+                                      </div>
+                              </form>  
+ 
+                    
+                </div>
+              </div>
+    </div>
+      <%- include footer.ejs %>
+    </div>
+  </div>
+
+  
+  <!--   Core JS Files   -->
+  <script src=" js/core/jquery.min.js"></script>
+  <script src=" js/core/popper.min.js"></script>
+  <script src=" js/core/bootstrap.min.js"></script>
+  <script src=" js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src=" js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src=" js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src=" js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src=" demo/demo.js"></script>
+  <script src="js/selectFilter.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+      demo.initChartsPages();
+    });
+  </script>
+</body>
+
+</html>

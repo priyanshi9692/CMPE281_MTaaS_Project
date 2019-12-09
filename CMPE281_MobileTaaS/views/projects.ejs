@@ -99,7 +99,7 @@
                     </select>
 
 
-                <form action="/addproject" method="post" enctype="multipart/form-data">
+                <form action="/editproject" method="post" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-md-5 pr-1">
 
@@ -128,6 +128,7 @@
                       <div class="form-group">
                         <label>Mobile App Link 2</label>
                         <input type="text" class="form-control" placeholder="http://.." id="link2" name="link2">
+                        <input type="text" class="form-control" placeholder="http://.." id="id1" name="id1" hidden>
                       </div>
                     </div>
                   </div>
@@ -154,6 +155,9 @@
                           <div class="col-md-4">
                                 <div class="form-group">
                                   <label>Upload Test Cases:</label>
+                                
+                                  <br/>
+                                  
                                   <input type="file" name="testcase"  id="testcase" multiple>
                                
                                   <label class="custom-file-testcase" for="testcase" id="case"></label>
@@ -214,7 +218,7 @@ const url = '/getprojects';
 // Populate dropdown with list of provinces
 $.getJSON(url, function (data) {
   $.each(data, function (key, entry) {
-    dropdown.append($('<option></option>').attr('value', entry).text(entry));
+    dropdown.append($('<option></option>').attr('value', entry.name).text(entry.name));
   })
 });
 
@@ -251,20 +255,23 @@ function deleteProject(){
 
 
 $('#locality-dropdown').change( function() {
-   $(this).find(":selected").each(function () {
-            var url="getproject?name="+ $(this).val();
+  console.log($("#locality-dropdown").find('option:selected').attr("value"));
+   var val=$("#locality-dropdown").find('option:selected').attr("value");
+            var url="getproject?name="+ val;
             $.get(url, function(data, status){
 
               document.getElementById('project').value = data.name;
               document.getElementById('description').value = data.description;
               document.getElementById('link1').value = data.link1;
               document.getElementById('link2').value = data.link2;
-              $('#document').next('.custom-file-document').html(data.document);
-              document.getElementById('data').value = data.testdata;
-              document.getElementById('case').value = data.testcase;
+              document.getElementById('id1').value = data._id;
+              $('#doc').text(data.documentation);
+              $('#data').text(data.testdata);
+              $('#case').text(data.testcases);
+
               console.log(data);
             });
-    });
+   
  });
 
 

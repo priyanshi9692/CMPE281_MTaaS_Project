@@ -9,7 +9,8 @@
   <title>
     Project Manager Dashboard
   </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -19,6 +20,22 @@
   <link href=" css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href=" demo/demo.css" rel="stylesheet" />
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
 </head>
 
 <body class="">
@@ -77,12 +94,9 @@
       </div>
     </div>
     <div class="main-panel">
-            <%- include nav.ejs %>
+      <%- include nav.ejs %>
       <!-- <div class="panel-header panel-header-lg">
-
   <canvas id="bigDashboardChart"></canvas>
-
-
 </div> -->
       <div class="content">
         <div class="row">
@@ -96,20 +110,20 @@
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
-                    <div class="numbers" >
-                      <p class="card-category" >Total Projects</p>
-                      <p class="card-title" id="num" > </p>
-                        <p>
+                    <div class="numbers">
+                      <p class="card-category">Total Projects</p>
+                      <p class="card-title" id="num"> </p>
+                      <p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card-footer ">
+              <!-- <div class="card-footer ">
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i> Update Now
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
@@ -123,17 +137,11 @@
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Ongoing Projects</p>
-                      <p class="card-title">
+                      <p class="card-category">Ongoing Project</p>
+                      <p class="card-title" id="ongoing">
                         <p>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-calendar-o"></i> Last day
                 </div>
               </div>
             </div>
@@ -156,12 +164,6 @@
                   </div>
                 </div>
               </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-clock-o"></i> In the last hour
-                </div>
-              </div>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
@@ -176,24 +178,56 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Working teams</p>
-                      <p class="card-title">
+                      <p class="card-title" id="workingteams">
                         <p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card-footer ">
+              <!-- <div class="card-footer ">
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i> Update now
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header ">
+                <h5 class="card-title">Project List</h5>
+                <p class="card-category"></p>
+              </div>
+              <div class="card-body ">
+                <table id="projects-table" style="width:100%">
+                  <thead>
+                    <tr>
+
+                      <th>Project Name</th>
+                      <th>App Link</th>
+
+                      <th>Documentation</th>
+                      <th>Test Data</th>
+                      <th>Test Cases</th>
+
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-history"></i>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-      
-          <div class="row">
+        <div class="row">
             <div class="col-md-12">
               <div class="card ">
                 <div class="card-header ">
@@ -201,48 +235,49 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body ">
-                  <table id="projects-table" class="cell-border" style="width:100%">
+                  <table id="projects-tester" style="width:100%">
                     <thead>
-                        <tr>
-                          
-                            <th>Project Name</th>
-                          
-                            <th>App Link</th>
-         
-                            <th>Documentation</th>
-                            <th>Test Data</th>
-                            <th>Test Cases</th>
-
-                        </tr>
+                      <tr>
+  
+                        <th>Project Name</th>
+                        <th>Crowded-Sourced Testers</th>
+  
+                      </tr>
                     </thead>
-                    </table>
+                  </table>
                 </div>
                 <div class="card-footer ">
                   <hr>
                   <div class="stats">
-                    <i class="fa fa-history"></i> 
+                    <i class="fa fa-history"></i>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+  
 
 
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <div class="card ">
               <div class="card-header ">
-                <h5 class="card-title">Project v/s Bug Analysis</h5>
-                <p class="card-category">24 Hours performance</p>
+                <h5 class="card-title">Ongoing project v/s Working Teams</h5>
+
               </div>
               <div class="card-body ">
-                <canvas id=chartHours width="400" height="100"></canvas>
+                <canvas id=chartHours width="400" height="200"></canvas>
               </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-history"></i> Updated 3 minutes ago
-                </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card ">
+              <div class="card-header ">
+                <h5 class="card-title">Total Projects in Test</h5>
+
+              </div>
+              <div class="card-body ">
+                <canvas id="chartProgress" width="300px" height="253"></canvas>
               </div>
             </div>
           </div>
@@ -284,9 +319,9 @@
                   <i class="fa fa-circle text-info"></i> Total Projects
                   <i class="fa fa-circle text-warning"></i> Ongoing Projects
                 </div>
-                <hr/>
+                <hr />
                 <div class="card-stats">
-              
+
                 </div>
               </div>
             </div>
@@ -301,7 +336,7 @@
   <script src=" js/core/popper.min.js"></script>
   <script src=" js/core/bootstrap.min.js"></script>
   <script src=" js/plugins/perfect-scrollbar.jquery.min.js"></script>
-   <!-- Google Maps Plugin   
+  <!-- Google Maps Plugin   
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
   <script src=" js/plugins/chartjs.min.js"></script>
@@ -313,35 +348,459 @@
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src=" demo/demo.js"></script>
   <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
+
+    $(document).ready(function () {
+
+      //Getting Ongoing Project Vs working Teams
+      $.getJSON("getprojects", function (data) {
+        chartColor = "#FFFFFF";
+        ctx = document.getElementById('chartHours').getContext("2d");
+        var ongoing = [];
+        var workingteams = [];
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].tester.length > 0) {
+            ongoing.push(data[i].name);
+            workingteams.push(data[i].tester.length);
+          }
+        }
+        myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ongoing,
+            datasets: [{
+              label: "No. of Teams working",
+              backgroundColor: ["lime", "aqua", "coral", "crimson"],
+              //borderWidth: 3,
+              data: workingteams
+            }]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Project and Number of Teams working on it'
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  userCallback: function (label, index, labels) {
+                    // when the floored value is the same as the value we have a whole number
+                    if (Math.floor(label) === label) {
+                      return label;
+                    }
+
+                  },
+                }
+              }],
+            },
+          }
+        });
+      });
+
+
+
+
+
+      //Total Project vs OngoingProject 
+
+
+
+
+
 
       const url = '/getprojects';
+      // Populate dropdown with list of provinces
+      $.getJSON(url, function (data) {
+        console.log(data.length);
+        var num = data.length;
+        $("#num").text(num.toString());
+        var ongoing = 0;
+        var workingteams = 0;
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].tester.length > 0) {
+            ongoing += 1;
+            workingteams += data[i].tester.length;
+          }
+        }
+        $("#ongoing").text(ongoing.toString());
+        $("#workingteams").text(workingteams.toString());
+        //document.getElementById('num').value=data.length;
 
-// Populate dropdown with list of provinces
-$.getJSON(url, function (data) {
-  console.log(data.length);
-  var num= data.length;
-  $("#num").text(num.toString());
-//document.getElementById('num').value=data.length;
-});
 
 
-$('#projects-table').dataTable( {
-  "ajax": {
-    "url": "getAllProjects",
-    "type": "GET"
-  },
-  "columns": [
-            { "data": "name" },
-            { "data": "link1" },
-            { "data": "documentation" },
-            { "data": "testdata" },
-            { "data": "testcases" }
+var values =[];
+values.push(ongoing);
+values.push(data.length - ongoing);
+        var chartProgress = document.getElementById("chartProgress");
+        if (chartProgress) {
+          var myChartCircle = new Chart(chartProgress, {
+            type: 'doughnut',
+            data: {
+              labels: ["Ongoing", 'Not in Test'],
+              datasets: [{
+                label: "",
+                backgroundColor: ["orchid"],
+                data: values
+              }]
+            },
+            plugins: [{
+              beforeDraw: function (chart) {
+                var width = chart.chart.width,
+                  height = chart.chart.height,
+                  ctx = chart.chart.ctx;
+
+                ctx.restore();
+                var fontSize = (height / 150).toFixed(2);
+                ctx.font = fontSize + "em sans-serif";
+                ctx.fillStyle = "black";
+                ctx.textBaseline = "middle";
+
+                var text = ongoing + " Projects in Test",
+                  textX = Math.round((width - ctx.measureText(text).width) / 2),
+                  textY = height / 2;
+
+                ctx.fillText(text, textX, textY);
+                ctx.save();
+              }
+            }],
+            options: {
+              legend: {
+                display: false,
+              },
+              responsive: true,
+              maintainAspectRatio: false,
+              cutoutPercentage: 85
+            }
+          });
+        }
+      });
+
+
+      $('#projects-table').dataTable({
+        "ajax": {
+          "url": "getAllProjects",
+          "type": "GET"
+        },
+        "columns": [
+          { "data": "name" },
+          { "data": "link1" },
+          {
+            "data": "documentation",
+            "render": function (data, type, row) {
+              return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+            }
+          },
+          {
+            "data": "testdata",
+            "render": function (data, type, row) {
+              return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+            }
+          },
+          {
+            "data": "testcases",
+            "render": function (data, type, row) {
+              return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+            }
+          }
         ]
+      });
+ 
+
+    $('#projects-tester').dataTable({
+        "ajax": {
+          "url": "getAllProjects",
+          "type": "GET"
+        },
+        "columns": [
+          { "data": "name" },
+          {
+            "data": "tester",
+            "render": function (data, type, row) {
+              return  data ;
+            }
+          }
+      
+      
+        ]
+      });
     });
-    });
+
+
+
+
+
+    //ALl graphs info
+    function initDocChart() {
+      chartColor = "#FFFFFF";
+
+      ctx = document.getElementById('chartHours').getContext("2d");
+
+      myChart = new Chart(ctx, {
+        type: 'line',
+
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+          datasets: [{
+            borderColor: "#6bd098",
+            backgroundColor: "#6bd098",
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            borderWidth: 3,
+            data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354]
+          },
+          {
+            borderColor: "#f17e5d",
+            backgroundColor: "#f17e5d",
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            borderWidth: 3,
+            data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
+          },
+          {
+            borderColor: "#fcc468",
+            backgroundColor: "#fcc468",
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            borderWidth: 3,
+            data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
+          }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+
+          tooltips: {
+            enabled: false
+          },
+
+          scales: {
+            yAxes: [{
+
+              ticks: {
+                fontColor: "#9f9f9f",
+                beginAtZero: false,
+                maxTicksLimit: 5,
+                //padding: 20
+              },
+              gridLines: {
+                drawBorder: false,
+                zeroLineColor: "#ccc",
+                color: 'rgba(255,255,255,0.05)'
+              }
+
+            }],
+
+            xAxes: [{
+              barPercentage: 1.6,
+              gridLines: {
+                drawBorder: false,
+                color: 'rgba(255,255,255,0.1)',
+                zeroLineColor: "transparent",
+                display: false,
+              },
+              ticks: {
+                padding: 20,
+                fontColor: "#9f9f9f"
+              }
+            }]
+          },
+        }
+      });
+
+    }
+
+    function initChartsPages() {
+      chartColor = "#FFFFFF";
+
+      ctx = document.getElementById('chartHours').getContext("2d");
+
+      myChart = new Chart(ctx, {
+        type: 'bar',
+
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+          datasets: [{
+            borderColor: "#6bd098",
+            backgroundColor: "#6bd098",
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            borderWidth: 3,
+            data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354]
+          },
+          {
+            borderColor: "#f17e5d",
+            backgroundColor: "#f17e5d",
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            borderWidth: 3,
+            data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
+          },
+          {
+            borderColor: "#fcc468",
+            backgroundColor: "#fcc468",
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            borderWidth: 3,
+            data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
+          }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+
+          tooltips: {
+            enabled: false
+          },
+
+          scales: {
+            yAxes: [{
+
+              ticks: {
+                fontColor: "#9f9f9f",
+                beginAtZero: false,
+                maxTicksLimit: 5,
+                //padding: 20
+              },
+              gridLines: {
+                drawBorder: false,
+                zeroLineColor: "#ccc",
+                color: 'rgba(255,255,255,0.05)'
+              }
+
+            }],
+
+            xAxes: [{
+              barPercentage: 1.6,
+              gridLines: {
+                drawBorder: false,
+                color: 'rgba(255,255,255,0.1)',
+                zeroLineColor: "transparent",
+                display: false,
+              },
+              ticks: {
+                padding: 20,
+                fontColor: "#9f9f9f"
+              }
+            }]
+          },
+        }
+      });
+
+
+      ctx = document.getElementById('chartEmail').getContext("2d");
+
+      myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: [1, 2, 3, 4],
+          datasets: [{
+            label: "Emails",
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            backgroundColor: [
+              '#e3e3e3',
+              '#4acccd',
+              '#fcc468',
+              '#ef8157'
+            ],
+            borderWidth: 0,
+            data: [80, 100, 150, 200]
+          }]
+        },
+
+        options: {
+
+          legend: {
+            display: false
+          },
+
+          pieceLabel: {
+            render: 'percentage',
+            fontColor: ['white'],
+            precision: 2
+          },
+
+          tooltips: {
+            enabled: false
+          },
+
+          scales: {
+            yAxes: [{
+
+              ticks: {
+                display: false
+              },
+              gridLines: {
+                drawBorder: false,
+                zeroLineColor: "transparent",
+                color: 'rgba(255,255,255,0.05)'
+              }
+
+            }],
+
+            xAxes: [{
+              barPercentage: 1.6,
+              gridLines: {
+                drawBorder: false,
+                color: 'rgba(255,255,255,0.1)',
+                zeroLineColor: "transparent"
+              },
+              ticks: {
+                display: false,
+              }
+            }]
+          },
+        }
+      });
+
+      var speedCanvas = document.getElementById("speedChart");
+
+      var dataFirst = {
+        data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
+        fill: false,
+        borderColor: '#fbc658',
+        backgroundColor: 'transparent',
+        pointBorderColor: '#fbc658',
+        pointRadius: 4,
+        pointHoverRadius: 4,
+        pointBorderWidth: 8,
+      };
+
+      var dataSecond = {
+        data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
+        fill: false,
+        borderColor: '#51CACF',
+        backgroundColor: 'transparent',
+        pointBorderColor: '#51CACF',
+        pointRadius: 4,
+        pointHoverRadius: 4,
+        pointBorderWidth: 8
+      };
+
+      var speedData = {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [dataFirst, dataSecond]
+      };
+
+      var chartOptions = {
+        legend: {
+          display: false,
+          position: 'top'
+        }
+      };
+
+      var lineChart = new Chart(speedCanvas, {
+        type: 'line',
+        hover: false,
+        data: speedData,
+        options: chartOptions
+      });
+    }
   </script>
 </body>
 
