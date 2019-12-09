@@ -8,7 +8,7 @@ var url = "mongodb://localhost:27017/mobile_taas";
 router.post('/tester/addabug', function(req, res, next) {
   console.log(req.body);
     var Bug={};
-  Bug.Bug_ID=req.body.Bug_ID;
+  Bug.bug_id=req.body.bug_id;
   Bug.component=req.body.component;
   Bug.version=req.body.version;
   Bug.summary=req.body.summary;
@@ -38,7 +38,7 @@ router.get('/tester/getbug', function(req, res, next) {
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
       var dbo = db.db("mobile_taas");
-      var query = { Bug_ID:req.query.Bug_ID };
+      var query = { bug_id:req.query.bug_id };
       dbo.collection("bug").findOne(query,function(err, result) {
         if (err) throw err;
         //console.log(result);
@@ -77,12 +77,12 @@ router.post('/tester/editbug', function(req, res) {
       MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("mobile_taas");
-        var query = { Bug_ID:form.Bug_ID };
+        var query = { bug_id:form.bug_id };
         var newvalues = { $set: form };
         dbo.collection("bug").updateOne(query,newvalues,function(err, result) {
           if (err) throw err;
           //console.log(result);
-          req.session.user.Bug_ID=form.Bug_ID;
+          req.session.user.bug_id=form.bug_id;
           console.log(result);
           //res.send(result);
           //return;
@@ -101,7 +101,7 @@ router.delete('/tester/editbug',function(req,res){
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
       var dbo = db.db("mobile_taas");
-      var myquery = { Bug_ID: req.body.Bug_ID };
+      var myquery = { bug_id: req.body.bug_id };
     dbo.collection("bug").deleteOne(myquery, function(err, obj) {
       if (err) { 
         console.log(err);
