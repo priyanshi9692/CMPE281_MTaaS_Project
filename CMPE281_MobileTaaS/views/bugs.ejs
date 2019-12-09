@@ -18,6 +18,14 @@
   <link href=" css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href=" demo/demo.css" rel="stylesheet" />
+  <script>
+      $(document).ready(function() {
+         $("#myTab a").click(function(e) {
+            e.preventDefault();
+            $(this).tab('show');
+         });
+      });
+      </script>
 </head>
 
 <body class="">
@@ -29,7 +37,7 @@
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src=" img/priyanshi.jpg">                            //tester photo
+            <img src=" img/priyanshi.jpg">                           
           </div>
         </a>
         <a href="/dashboard" class="simple-text logo-normal">
@@ -60,7 +68,7 @@
             </a>
           </li>
           <li class="active" >
-              <a href="/adddevice">
+              <a href="/bugs_tabs">
                <i class="nc-icon nc-settings"></i>
                <p>Bugs</p>
               </a>
@@ -89,18 +97,239 @@
     </div>
     <div class="main-panel">
             <%- include nav_tester.ejs %>
-      <!-- <div class="panel-header panel-header-lg">
-
-  <canvas id="bigDashboardChart"></canvas>
-
-
-</div> -->
+   
       <div class="content">
-            <div class="card" style="width: 60rem;">
-                    <div class="card-body">
-                   <a>Bug Page</a>
+          
+          <div >
+              <div class="bs-example">
+                 <ul class="nav nav-tabs">
+                    <li class="nav-item"> <a href="#Add" style="color:#000000;" class="nav-link active" data-toggle="tab">Add</a> </li>
+                    <li class="nav-item"> <a href="#Search" style="color:#000000;" class="nav-link" data-toggle="tab">Search</a> </li>
+                    <li class="nav-item"> <a href="#Edit" style="color:#000000;" class="nav-link" data-toggle="tab">Edit</a> </li>
+                 </ul>
+                 <div class="tab-content">
+                    <div class="tab-pane fade show active" id="Add">
+                       <h4 class="mt-2">Add a Bug in <%= project.name %></h4>
+                       <p>Add a Bug for the project</p>
+                       <div class="content">
+                          <div class="row">
+                             <div class="col-md-12">
+                                <div class="card card-user">
+                                   <div class="card-header">
+                                      <form action="/addabug" method="post">
+                                         <div class="row">
+                                            <div class="col-md-5 pr-1">
+                                               <div class="form-group">
+                                                  <label>Bug ID</label>
+                                                  <input type="text" class="form-control" placeholder="Bug ID" id="bugid" name="bugid"> </div>
+                                            </div>
+                                         </div>
+                                         <div class="row">
+                                            <div class="col-md-10 pr-1">
+                                               <div class="form-group">
+                                                  <label>Component</label>
+                                                  <input type="text" class="form-control" placeholder="Project Component name (software/hardware) affected" id="component" name="component"> </div>
+                                            </div>
+                                         </div>
+                                         <div class="row">
+                                            <div class="col-md-2 pr-1">
+                                               <div class="form-group">
+                                                  <label>Version</label>
+                                                  <input type="text" class="form-control" placeholder="Version#" id="version" name="version"> </div>
+                                            </div>
+                                         </div>
+                                         <div class="row">
+                                         <div class="col-md-5 pr-1">
+                                            <div class="form-group">
+                                               <label>Status</label>
+                                               <input type="text" class="form-control" placeholder="New/Open/Re-open/Closed" id="status" name="status"> </div>
+                                         </div>
+                                      </div>
+                                         <div class="row">
+                                            <div class="col-md-2 pr-1">
+                                               <div class="form-group">
+                                                  <label>Priority</label>
+                                                  <input type="text" class="form-control" placeholder="Priority" id="priority" name="priority"> </div>
+                                            </div>
+                                         </div>
+                                         <div class="row">
+                                            <div class="col-md-2 pr-1">
+                                               <div class="form-group">
+                                                  <label>Date Created</label>
+                                                  <input type="text" class="form-control" placeholder="YYYYMMDD" id="date_created" name="date_created"> </div>
+                                                  <input type="text" class="form-control" placeholder="Priority" id="id" name="id" value=<%= project._id %> hidden>  </div>
+                                            </div>
+                                         </div>
+                                          <div class="row">
+                                         <div class="col-md-12">
+                                            <div class="form-group">
+                                               <label>Summary</label>
+                                               <textarea class="form-control textarea" id="summary" placeholder="summary of the bug incurred" name="summary"></textarea>
+                                            </div>
+                                         </div>
+                                      </div>
+                                         
+                                         <div class="row">
+                                            <div class="col-md-4">
+                                               <div class="form-group">
+                                                  <label>Upload Documentation:</label>
+                                                  <input type="file" name="document" id="document" multiple>
+                                                  <label class="custom-file-document" for="document"></label>
+                                                  <input type="submit" class="btn btn-primary btn-round" value="Upload"> </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                               <div class="form-group">
+                                                  <label>Upload Test Data:</label>
+                                                  <input type="file" name="testdata" id="testdata" multiple>
+                                                  <label class="custom-file-testdata" for="testdata"></label>
+                                                  <input type="submit" class="btn btn-primary btn-round" value="Upload"> </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                               <div class="form-group">
+                                                  <label>Upload Test Cases:</label>
+                                                  <input type="file" name="testcase" id="testcase" multiple>
+                                                  <label class="custom-file-testcase" for="testcase"></label>
+                                                  <input type="submit" class="btn btn-primary btn-round" value="Upload"> </div>
+                                            </div>
+                                         </div>
+                                         <div class="row"> </div>
+                                         <div class="row">
+                                            <div class="update ml-auto mr-auto">
+                                               <button type="submit" class="btn btn-primary btn-round">Add Bug</button>
+                                            </div>
+                                         </div>
+                                      </form>
+                                   </div>
+                                </div>
+                             </div>
+                          </div>
+                        </div>
                     </div>
-                  </div>
+                    <div class="tab-pane fade" id="Search">
+                       <h4 class="mt-2">Search for Project Bugs</h4>
+                       <p>Search an existing bug</p>
+                       <div class="row">
+                          <div class="col-md-12">
+                             <div class="card ">
+                                <div class="card-header ">
+                                   <h5 class="card-title">List of Bugs</h5>
+                                   <p class="card-category"></p>
+                                </div>
+                                <div class="card-body ">
+                                   <table id="bug-table" class="cell-border" style="width:100%">
+                                      <thead>
+                                         <tr>
+                                            <th>Bug ID</th>
+                                            <th>Component</th>
+                                            <th>Status</th>
+                                            <th>Priority</th>
+                                            <th>Summary</th>
+                                         </tr>
+                                      </thead>
+                                   </table>
+                                </div>
+                                <div class="card-footer ">
+                                   <hr>
+                                   <div class="stats"> <i class="fa fa-history"></i> </div>
+                                </div>
+                             </div>
+                          </div>                 
+                       </div>
+                    </div>
+                    <div class="tab-pane fade" id="Edit">
+                       <h4 class="mt-2">Edit page to update or Delete Project bugs</h4>
+                       <p>Update or Delete an existing bug.</p>
+                       <div class="row">
+                          <div class="col-md-12">
+                             <div class="card card-user">
+                                <div class="card-header">
+                                   <h5 class="card-title">Enter Bug details</h5> </div>
+                                <div class="card-body">
+                                   <select id="locality-dropdown" name="locality"> </select>
+                                   <form action="/addabug" method="post" enctype="multipart/form-data">
+                                      <div class="row">
+                                         <div class="col-md-5 pr-1">
+                                            <div class="form-group">
+                                               <label>Bug ID</label>
+                                               <input type="text" class="form-control" placeholder="Bug ID" id="Bug ID" name="Bug ID"> </div>
+                                         </div>
+                                      </div>
+                                      <div class="row">
+                                         <div class="col-md-5 pr-1">
+                                            <div class="form-group">
+                                               <label>Version</label>
+                                               <input type="text" class="form-control" placeholder="Version# (ex. v2.0 for update) " id="Version" name="Version"> </div>
+                                         </div>
+                                      </div>
+                                      <div class="row">
+                                         <div class="col-md-12">
+                                            <div class="form-group">
+                                               <label>Summary</label>
+                                               <textarea class="form-control textarea" id="Summary" placeholder="Summary of the bug incurred"name="Summary"></textarea>
+                                            </div>
+                                         </div>
+                                      </div>
+                                     <div class="row">
+                                         <div class="col-md-5 pr-1">
+                                            <div class="form-group">
+                                               <label>Updated Priority</label>
+                                               <input type="text" class="form-control" placeholder="Low/Medium/High/Critical" id="Priority" name="Priority"> </div>
+                                         </div>
+                                      </div>
+                                        <div class="row">
+                                         <div class="col-md-5 pr-1">
+                                            <div class="form-group">
+                                               <label>Updated Status</label>
+                                               <input type="text" class="form-control" placeholder="New/Open/Re-open/Closed" id="Status" name="Status"> </div>
+                                         </div>
+                                      </div>
+                                         <div class="row">
+                                            <div class="col-md-2 pr-1">
+                                               <div class="form-group">
+                                                  <label>Date Modified</label>
+                                                  <input type="text" class="form-control" placeholder="YYYYMMDD" id="Date Modified" name="Date Modified"> </div>
+                                            </div>
+                                         </div>
+                                       <div class="row">
+                                         <div class="col-md-4">
+                                            <div class="form-group">
+                                               <label>Upload Documentation:</label>
+                                               <input type="file" name="document" id="document" multiple>
+                                               <label class="custom-file-document" for="document" id="doc"></label>
+                                               <input type="submit" class="btn btn-primary btn-round" value="Upload"> </div>
+                                         </div>
+                                         <div class="col-md-4">
+                                            <div class="form-group">
+                                               <label>Upload Test Data:</label>
+                                               <input type="file" name="testdata" id="testdata" multiple>
+                                               <label class="custom-file-testdata" for="testdata" id="data"></label>
+                                               <input type="submit" class="btn btn-primary btn-round" value="Upload"> </div>
+                                         </div>
+                                         <div class="col-md-4">
+                                            <div class="form-group">
+                                               <label>Upload Test Cases:</label>
+                                               <input type="file" name="testcase" id="testcase" multiple>
+                                               <label class="custom-file-testcase" for="testcase" id="case"></label>
+                                               <input type="submit" class="btn btn-primary btn-round" value="Upload"> </div>
+                                         </div>
+                                      </div>
+                                      <div class="row"> </div>
+                                      <div class="row">
+                                         <div class="update ml-auto mr-auto">
+                                            <button type="submit" class="btn btn-primary btn-round">Update Bug</button>
+                                         </div>
+                                      </div>
+                                   </form>
+                                   <div class="row">
+                                      <div class="update ml-auto mr-auto">
+                                         <button type="submit" onclick="deletebug()" class="btn btn-primary btn-round" style="background-color:crimson">Delete Bug</button>
+                                      </div>
+                                   </div>
+                                </div>
+                             </div>
+                          </div>
+                          </div>
+                          </div>
       </div>
       <%- include footer.ejs %>
     </div>

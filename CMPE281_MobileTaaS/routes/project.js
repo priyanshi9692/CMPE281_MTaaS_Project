@@ -87,6 +87,7 @@ router.get('/profile', function(req, res, next) {
             project.testcases = pro[6];
             project.tester = [];
             project.owner=req.session.user.username;
+            project.bugs=[];
             console.log(project);
             console.log(pro);
             MongoClient.connect("mongodb://localhost:27017/mobile_taas", function(err, db) {
@@ -227,10 +228,3 @@ router.delete('/editproject',function(req,res){
 });
 });
   module.exports = router;
-
-
-
-
-
-
-  

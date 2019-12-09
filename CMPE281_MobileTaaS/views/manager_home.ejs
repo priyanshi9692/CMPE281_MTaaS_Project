@@ -25,13 +25,11 @@
       border-collapse: collapse;
       width: 100%;
     }
-
     th,
     td {
       text-align: left;
       padding: 8px;
     }
-
     tr:nth-child(even) {
       background-color: #f2f2f2;
     }
@@ -158,7 +156,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Bugs Identified</p>
-                      <p class="card-title">
+                      <p class="card-title" id="bugs">
                         <p>
                     </div>
                   </div>
@@ -228,32 +226,7 @@
           </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-              <div class="card ">
-                <div class="card-header ">
-                  <h5 class="card-title">Project List</h5>
-                  <p class="card-category"></p>
-                </div>
-                <div class="card-body ">
-                  <table id="projects-tester" style="width:100%">
-                    <thead>
-                      <tr>
-  
-                        <th>Project Name</th>
-                        <th>Crowded-Sourced Testers</th>
-  
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-                <div class="card-footer ">
-                  <hr>
-                  <div class="stats">
-                    <i class="fa fa-history"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
+          
           </div>
   
 
@@ -283,47 +256,37 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="card ">
               <div class="card-header ">
                 <h5 class="card-title">Bug Statictics</h5>
                 <p class="card-category">Last Testing Report</p>
               </div>
               <div class="card-body ">
-                <canvas id="chartEmail"></canvas>
+                <canvas id="chartbugs" width="400" height="200"></canvas>
               </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-primary"></i> Critical
-                  <i class="fa fa-circle text-warning"></i> High Priority
-                  <i class="fa fa-circle text-danger"></i>Medium Priority
-                  <i class="fa fa-circle text-gray"></i> Low Priority
-                </div>
-                <hr>
-                <div class="stats">
-                </div>
-              </div>
+              
             </div>
           </div>
-          <div class="col-md-8">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-title">Project Statistics</h5>
-                <p class="card-category">Daily Comparison</p>
+          <div class="col-md-6">
+            <div class="card ">
+              <div class="card-header ">
+                <h5 class="card-title">Project List</h5>
+                <p class="card-category"></p>
               </div>
-              <div class="card-body">
-                <canvas id="speedChart" width="400" height="100"></canvas>
-              </div>
-              <div class="card-footer">
-                <div class="chart-legend">
-                  <i class="fa fa-circle text-info"></i> Total Projects
-                  <i class="fa fa-circle text-warning"></i> Ongoing Projects
-                </div>
-                <hr />
-                <div class="card-stats">
+              <div class="card-body ">
+                <table id="projects-tester" style="width:100%">
+                  <thead>
+                    <tr>
 
-                </div>
+                      <th>Project Name</th>
+                      <th>Crowded-Sourced Testers</th>
+
+                    </tr>
+                  </thead>
+                </table>
               </div>
+              
             </div>
           </div>
         </div>
@@ -348,9 +311,7 @@
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src=" demo/demo.js"></script>
   <script>
-
     $(document).ready(function () {
-
       //Getting Ongoing Project Vs working Teams
       $.getJSON("getprojects", function (data) {
         chartColor = "#FFFFFF";
@@ -389,7 +350,48 @@
                     if (Math.floor(label) === label) {
                       return label;
                     }
-
+                  },
+                }
+              }],
+            },
+          }
+        });
+        chartColor = "#FFFFFF";
+        ctx = document.getElementById('chartbugs').getContext("2d");
+        var ongoing = [];
+        var bugs = [];
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].tester.length > 0) {
+            ongoing.push(data[i].name);
+            bugs.push(data[i].bugs.length);
+          }
+        }
+        myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ongoing,
+            datasets: [{
+              label: "No. of bugs in Project",
+              backgroundColor: ["lime", "aqua", "coral", "crimson"],
+              //borderWidth: 3,
+              data: bugs
+            }]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Project and Number of bugs'
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  userCallback: function (label, index, labels) {
+                    // when the floored value is the same as the value we have a whole number
+                    if (Math.floor(label) === label) {
+                      return label;
+                    }
                   },
                 }
               }],
@@ -397,18 +399,7 @@
           }
         });
       });
-
-
-
-
-
       //Total Project vs OngoingProject 
-
-
-
-
-
-
       const url = '/getprojects';
       // Populate dropdown with list of provinces
       $.getJSON(url, function (data) {
@@ -417,18 +408,18 @@
         $("#num").text(num.toString());
         var ongoing = 0;
         var workingteams = 0;
+        var bugs=0;
         for (var i = 0; i < data.length; i++) {
           if (data[i].tester.length > 0) {
             ongoing += 1;
             workingteams += data[i].tester.length;
+            bugs+=data[i].bugs.length;
           }
         }
         $("#ongoing").text(ongoing.toString());
         $("#workingteams").text(workingteams.toString());
+        $("#bugs").text(bugs.toString());
         //document.getElementById('num').value=data.length;
-
-
-
 var values =[];
 values.push(ongoing);
 values.push(data.length - ongoing);
@@ -449,17 +440,14 @@ values.push(data.length - ongoing);
                 var width = chart.chart.width,
                   height = chart.chart.height,
                   ctx = chart.chart.ctx;
-
                 ctx.restore();
                 var fontSize = (height / 150).toFixed(2);
                 ctx.font = fontSize + "em sans-serif";
                 ctx.fillStyle = "black";
                 ctx.textBaseline = "middle";
-
                 var text = ongoing + " Projects in Test",
                   textX = Math.round((width - ctx.measureText(text).width) / 2),
                   textY = height / 2;
-
                 ctx.fillText(text, textX, textY);
                 ctx.save();
               }
@@ -475,8 +463,6 @@ values.push(data.length - ongoing);
           });
         }
       });
-
-
       $('#projects-table').dataTable({
         "ajax": {
           "url": "getAllProjects",
@@ -506,7 +492,6 @@ values.push(data.length - ongoing);
         ]
       });
  
-
     $('#projects-tester').dataTable({
         "ajax": {
           "url": "getAllProjects",
@@ -522,23 +507,16 @@ values.push(data.length - ongoing);
           }
       
       
-        ]
+        ],
+        pageLength : 5,
       });
     });
-
-
-
-
-
     //ALl graphs info
     function initDocChart() {
       chartColor = "#FFFFFF";
-
       ctx = document.getElementById('chartHours').getContext("2d");
-
       myChart = new Chart(ctx, {
         type: 'line',
-
         data: {
           labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
           datasets: [{
@@ -571,14 +549,11 @@ values.push(data.length - ongoing);
           legend: {
             display: false
           },
-
           tooltips: {
             enabled: false
           },
-
           scales: {
             yAxes: [{
-
               ticks: {
                 fontColor: "#9f9f9f",
                 beginAtZero: false,
@@ -590,9 +565,7 @@ values.push(data.length - ongoing);
                 zeroLineColor: "#ccc",
                 color: 'rgba(255,255,255,0.05)'
               }
-
             }],
-
             xAxes: [{
               barPercentage: 1.6,
               gridLines: {
@@ -609,17 +582,12 @@ values.push(data.length - ongoing);
           },
         }
       });
-
     }
-
     function initChartsPages() {
       chartColor = "#FFFFFF";
-
       ctx = document.getElementById('chartHours').getContext("2d");
-
       myChart = new Chart(ctx, {
         type: 'bar',
-
         data: {
           labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
           datasets: [{
@@ -652,14 +620,11 @@ values.push(data.length - ongoing);
           legend: {
             display: false
           },
-
           tooltips: {
             enabled: false
           },
-
           scales: {
             yAxes: [{
-
               ticks: {
                 fontColor: "#9f9f9f",
                 beginAtZero: false,
@@ -671,9 +636,7 @@ values.push(data.length - ongoing);
                 zeroLineColor: "#ccc",
                 color: 'rgba(255,255,255,0.05)'
               }
-
             }],
-
             xAxes: [{
               barPercentage: 1.6,
               gridLines: {
@@ -690,10 +653,7 @@ values.push(data.length - ongoing);
           },
         }
       });
-
-
       ctx = document.getElementById('chartEmail').getContext("2d");
-
       myChart = new Chart(ctx, {
         type: 'pie',
         data: {
@@ -712,26 +672,20 @@ values.push(data.length - ongoing);
             data: [80, 100, 150, 200]
           }]
         },
-
         options: {
-
           legend: {
             display: false
           },
-
           pieceLabel: {
             render: 'percentage',
             fontColor: ['white'],
             precision: 2
           },
-
           tooltips: {
             enabled: false
           },
-
           scales: {
             yAxes: [{
-
               ticks: {
                 display: false
               },
@@ -740,9 +694,7 @@ values.push(data.length - ongoing);
                 zeroLineColor: "transparent",
                 color: 'rgba(255,255,255,0.05)'
               }
-
             }],
-
             xAxes: [{
               barPercentage: 1.6,
               gridLines: {
@@ -757,9 +709,7 @@ values.push(data.length - ongoing);
           },
         }
       });
-
       var speedCanvas = document.getElementById("speedChart");
-
       var dataFirst = {
         data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
         fill: false,
@@ -770,7 +720,6 @@ values.push(data.length - ongoing);
         pointHoverRadius: 4,
         pointBorderWidth: 8,
       };
-
       var dataSecond = {
         data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
         fill: false,
@@ -781,19 +730,16 @@ values.push(data.length - ongoing);
         pointHoverRadius: 4,
         pointBorderWidth: 8
       };
-
       var speedData = {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [dataFirst, dataSecond]
       };
-
       var chartOptions = {
         legend: {
           display: false,
           position: 'top'
         }
       };
-
       var lineChart = new Chart(speedCanvas, {
         type: 'line',
         hover: false,
