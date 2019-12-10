@@ -109,7 +109,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category"> My Projects Overview</p>
-                      <p class="card-title">5
+                      <p class="card-title" id="num">
                         <p>
                     </div>
                   </div>
@@ -263,7 +263,22 @@
     $(document).ready(function() {
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
-    });
+      const url = '/getprojectsfortest';
+      // Populate dropdown with list of provinces
+      $.getJSON(url, function (info) {
+        console.log(info.data.length);
+        var count=0;
+        for(var i= 0; i<info.data.length; i++){
+          if(info.data[i].status==true){
+            count+=1;
+        }
+
+        }
+        console.log(count);
+        var num = count;
+        $("#num").text(num.toString());
+      });
+  });
   </script>
 </body>
 

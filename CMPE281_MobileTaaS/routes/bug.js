@@ -20,7 +20,7 @@ router.get('/bugs_tabs', function(req, res, next) {
          console.log(result);
          project  = result;
          console.log(project);
-          return res.render('bugs',{
+          return res.render('bugs_tabs',{
             user:req.session.user.name,
             project:project
           });
