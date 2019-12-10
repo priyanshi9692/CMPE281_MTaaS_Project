@@ -7,21 +7,21 @@
 * {
   box-sizing: border-box;
 }
-
 </style>
     
-   <title>Bugg addition + Update + Edit</title>
+   <title>Bug addition + Update + Edit</title>
    <div>
     <h2 style="text-align: center;">Bugs</h2>
   </div>
   <div>
-    <p style="text-align: center;">Click on the buttons to perform necessary operation on Bugs</p>
+    <p style="text-align: center;">Click on the buttons to perform necessary operation on Bugs:</p>
   </div>
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
    <style>
    .bs-example {
       margin: 20px;
@@ -35,6 +35,16 @@
       });
    });
    </script>
+   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+   <!--     Fonts and icons     -->
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+ 
+   <!-- CSS Files -->
+   <link href=" css/bootstrap.min.css" rel="stylesheet" />
+   <link href=" css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+   <!-- CSS Just for demo purpose, don't include it in your project -->
+   <link href=" demo/demo.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -45,7 +55,7 @@
             <div class="logo">
               <a href="http://www.creative-tim.com" class="simple-text logo-mini">
                 <div class="logo-image-small">
-                  <img src=" img/priyanshi.jpg">                           
+                  <img src=" img/priyanshi.jpg">                         
                 </div>
               </a>
               <a href="/dashboard" class="simple-text logo-normal">
@@ -57,7 +67,7 @@
             </div>
             <div class="sidebar-wrapper">
               <ul class="nav">
-                <li>
+                <li class="active ">
                   <a href="/dashboard">
                     <i class="nc-icon nc-bank"></i>
                     <p>Dashboard</p>
@@ -103,7 +113,10 @@
               </ul>
             </div>
           </div>
-    <div style="background-color: #D">
+          <div class="main-panel">
+               <%- include nav_tester.ejs %>
+               <div class="content">
+   <div style="background-color: #D">
    <div class="bs-example">
       <ul class="nav nav-tabs">
          <li class="nav-item"> <a href="#Add" style="color:#000000;" class="nav-link active" data-toggle="tab">Add</a> </li>
@@ -112,26 +125,26 @@
       </ul>
       <div class="tab-content">
          <div class="tab-pane fade show active" id="Add">
-            <h4 class="mt-2">Add a Bug</h4>
+            <h4 class="mt-2">Add a Bug <%= project.name %></h4>
             <p>Add a Bug for the project</p>
             <div class="content">
                <div class="row">
                   <div class="col-md-12">
                      <div class="card card-user">
                         <div class="card-header">
-                           <form action="/addabug" method="post" enctype="multipart/form-data">
+                           <form action="/addabug" method="post" >
                               <div class="row">
                                  <div class="col-md-5 pr-1">
                                     <div class="form-group">
                                        <label>Bug ID</label>
-                                       <input type="text" class="form-control" placeholder="Bug ID" id="BugID" name="BugID"> </div>
+                                       <input type="text" class="form-control" placeholder="Bug ID" id="bugid" name="bugid"> </div>
                                  </div>
                               </div>
                               <div class="row">
                                  <div class="col-md-10 pr-1">
                                     <div class="form-group">
                                        <label>Component</label>
-                                       <input type="text" class="form-control" placeholder="Project Component name (software/hardware) affected" id="Component" name="Component"> </div>
+                                       <input type="text" class="form-control" placeholder="Project Component name (software/hardware) affected" id="component" name="component"> </div>
                                  </div>
                               </div>
                               <div class="row">
@@ -145,28 +158,30 @@
                               <div class="col-md-5 pr-1">
                                  <div class="form-group">
                                     <label>Status</label>
-                                    <input type="text" class="form-control" placeholder="New/Open/Re-open/Closed" id="Status" name="Status"> </div>
+                                    <input type="text" class="form-control" placeholder="New/Open/Re-open/Closed" id="status" name="status"> </div>
                               </div>
                            </div>
                               <div class="row">
                                  <div class="col-md-2 pr-1">
                                     <div class="form-group">
                                        <label>Priority</label>
-                                       <input type="text" class="form-control" placeholder="Priority" id="Priority" name="Priority"> </div>
+                                       <input type="text" class="form-control" placeholder="Priority" id="priority" name="priority"> </div>
                                  </div>
                               </div>
                               <div class="row">
                                  <div class="col-md-2 pr-1">
                                     <div class="form-group">
                                        <label>Date Created</label>
-                                       <input type="text" class="form-control" placeholder="YYYYMMDD" id="Date Created" name="Date created"> </div>
+                                       <input type="text" class="form-control" placeholder="YYYYMMDD" id="date" name="date">
+                                       <input type="text" class="form-control" placeholder="id" id="id" name="id" value= <%= project._id%> hidden >
+                                     </div>
                                  </div>
                               </div>
                                <div class="row">
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label>Summary</label>
-                                    <textarea class="form-control textarea" id="Summary" placeholder="Summary of the bug incurred"name="Summary"></textarea>
+                                    <textarea class="form-control textarea" id="summary" placeholder="Summary of the bug incurred"name="summary"></textarea>
                                  </div>
                               </div>
                            </div>
@@ -230,10 +245,7 @@
                            </thead>
                         </table>
                      </div>
-                     <div class="card-footer ">
-                        <hr>
-                        <div class="stats"> <i class="fa fa-history"></i> </div>
-                     </div>
+
                   </div>
                </div>                 
             </div>
@@ -253,21 +265,21 @@
                               <div class="col-md-5 pr-1">
                                  <div class="form-group">
                                     <label>Bug ID</label>
-                                    <input type="text" class="form-control" placeholder="Bug ID" id="Bug ID" name="Bug ID"> </div>
+                                    <input type="text" class="form-control" placeholder="Bug ID" id="bugid" name="bugid"> </div>
                               </div>
                            </div>
                            <div class="row">
                               <div class="col-md-5 pr-1">
                                  <div class="form-group">
                                     <label>Version</label>
-                                    <input type="text" class="form-control" placeholder="Version# (ex. v2.0 for update) " id="Version" name="Version"> </div>
+                                    <input type="text" class="form-control" placeholder="Version# (ex. v2.0 for update) " id="version" name="version"> </div>
                               </div>
                            </div>
                            <div class="row">
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label>Summary</label>
-                                    <textarea class="form-control textarea" id="Summary" placeholder="Summary of the bug incurred"name="Summary"></textarea>
+                                    <textarea class="form-control textarea" id="summary" placeholder="Summary of the bug incurred"name="summary"></textarea>
                                  </div>
                               </div>
                            </div>
@@ -275,21 +287,22 @@
                               <div class="col-md-5 pr-1">
                                  <div class="form-group">
                                     <label>Updated Priority</label>
-                                    <input type="text" class="form-control" placeholder="Low/Medium/High/Critical" id="Priority" name="Priority"> </div>
+                                    <input type="text" class="form-control" placeholder="Low/Medium/High/Critical" id="priority" name="priority"> </div>
                               </div>
                            </div>
                              <div class="row">
                               <div class="col-md-5 pr-1">
                                  <div class="form-group">
                                     <label>Updated Status</label>
-                                    <input type="text" class="form-control" placeholder="New/Open/Re-open/Closed" id="Status" name="Status"> </div>
+                                    <input type="text" class="form-control" placeholder="New/Open/Re-open/Closed" id="status" name="status"> </div>
                               </div>
                            </div>
                               <div class="row">
                                  <div class="col-md-2 pr-1">
                                     <div class="form-group">
                                        <label>Date Modified</label>
-                                       <input type="text" class="form-control" placeholder="YYYYMMDD" id="Date Modified" name="Date Modified"> </div>
+                                       <input type="text" class="form-control" placeholder="YYYYMMDD" id="date" name="date"> </div>
+                                       <input type="text" class="form-control" placeholder="id" id="id" name="id" hidden> </div>
                                  </div>
                               </div>
                             <div class="row">
@@ -333,6 +346,8 @@
                </div>
                </div>
               <%- include footer.ejs %>
+            </div>
+            </div>
       </div>
    </div>
    <!--   Core JS Files   -->
@@ -348,31 +363,24 @@
   <script src="js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" type="text/javascript"></script>
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="demo/demo.js"></script>
   <script>
 $( document ).ready(function() {
 let dropdown = $('#locality-dropdown');
-
 dropdown.empty();
-
 dropdown.append('<option selected="true" disabled>Choose Bug</option>');
 dropdown.prop('selectedIndex', 0);
-
 const url = '/tester/getallbugs';
-
 // Populate dropdown with list of provinces
 $.getJSON(url, function (data) {
   $.each(data, function (key, entry) {
     dropdown.append($('<option></option>').attr('value', entry).text(entry));
   })
 });
-
     });
-
-
     //$(this).find('option:selected').attr("name");
-
 function deletebug(){
   var d = $("#locality-dropdown").find('option:selected').attr("value");
   console.log(d);
@@ -398,23 +406,37 @@ function deletebug(){
     }
   });
 }
-
-
-$('#locality-dropdown').change( function() {
-   $(this).find(":selected").each(function () {
-            var url="getbug?ID="+ $(this).val();
-            $.get(url, function(data, status){
-
-              document.getElementById('bug_id').value = data.bug_id;
-              document.getElementById('component').value = data.component;
-              document.getElementById('priority').value = data.priority;
-              document.getElementById('status').value = data.status;
-              document.getElementById('summary').value = data.summary;
-              console.log(data);
-            });
-    });
- });
-
+$('#bug-table').dataTable({
+        "ajax": {
+          "url": "gettestersforbugs",
+          "type": "GET"
+        },
+        "columns": [
+          { "data": "bug_id" },
+          { "data": "component" },
+          {"data":"status"},
+          {"data": "priority"},
+          {"data":"summary"}
+         //  {
+         //    "data": "documentation",
+         //    "render": function (data, type, row) {
+         //      return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+         //    }
+         //  },
+         //  {
+         //    "data": "testdata",
+         //    "render": function (data, type, row) {
+         //      return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+         //    }
+         //  },
+         //  {
+         //    "data": "testcases",
+         //    "render": function (data, type, row) {
+         //      return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+         //    }
+         //  }
+        ]
+      });
 //Check if the below module applies for bugs//
 $('#document').on('change',function(){
                 //get the file name
