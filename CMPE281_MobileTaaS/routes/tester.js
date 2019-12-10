@@ -149,6 +149,19 @@ router.get('/addemulator', function(req, res, next) {
   }
   return res.redirect("/");
 });
+
+router.get('/bill', function(req, res, next) {
+  if (req.session && req.session.user) {
+    if(req.session.user.type=="tester"){
+      return res.render('bill',{
+        user:req.session.user.name,
+        amount:"$60"
+      });
+    }
+  }
+  return res.redirect("/");
+});
+
 /*jump to Bugs */
 router.get('/project_bugs', function(req, res, next) {
 if (req.session && req.session.user) {
