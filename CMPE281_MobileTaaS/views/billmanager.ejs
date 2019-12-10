@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="/'''             utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href=" img/apple-icon.png">
+  <link rel="icon" type="image/png" href=" img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Billing
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href=" css/bootstrap.min.css" rel="stylesheet" />
+  <link href=" css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href=" demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img src=" img/priyanshi.jpg">                            //tester photo
+          </div>
+        </a>
+        <a href="/dashboard" class="simple-text logo-normal">
+          <%= user %>
+          <!-- <div class="logo-image-big">
+            <img src=" img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+          <ul class="nav">
+            <li>
+              <a href="/dashboard">
+                <i class="nc-icon nc-bank"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+            <li > 
+                <a href="/add">
+              <i class="nc-icon nc-cloud-upload-94"></i>
+              <p>Add Project</p>
+            </a></li>
+           
+            <li>
+              <a href="/projects">
+                <i class="nc-icon nc-tap-01"></i>
+                <p>Update Project</p>
+              </a>
+            </li>
+            <li>
+            <li>
+              <a href="/profile">
+                <i class="nc-icon nc-single-02"></i>
+                <p>Profile</p>
+              </a>
+            </li>
+            <li >
+              <a href="/chat">
+                <i class="nc-icon nc-chat-33"></i>
+                <p>Community Chat</p>
+              </a>
+            </li>
+            <li class="active ">
+                <a href="/bill">
+                  <i class="nc-icon nc-credit-card"></i>
+                  <p>Bill</p>
+                </a>
+              </li>
+          </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <%- include nav.ejs %>
+      <!-- <div class="panel-header panel-header-lg">
+
+  <canvas id="bigDashboardChart"></canvas>
+
+.html {width: 90%; background-color: #4CAF50;} /* Green */
+.css {width: 80%; background-color: #2196F3;} /* Blue */
+.js {width: 65%; background-color: #f44336;} /* Red */
+.php {width: 60%; background-color: #808080;} /* Dark Grey */
+</div> -->
+    <div class="content">
+           <div class="row">
+             <!-- <div class="col-md-4">
+              <h5>heading</h5>
+            <p>Number of Projects: 1</p>
+            <div style="width: 100%; background-color: #ddd;">
+              <div style="text-align: right; padding-top: 10px; padding-bottom: 10px; color: white; width: 15%; background-color: #f44336;">$30</div>
+            </div>
+            <p>Number of Projects: 2</p>
+            <div style="width: 100%; background-color: #ddd;">
+              <div style="text-align: right; padding-top: 10px; padding-bottom: 10px; color: white; width: 30%; background-color: #f44336;">$60</div>
+            </div>
+            <p>Number of Projects: 3</p>
+            <div style="width: 100%; background-color: #ddd;">
+              <div style="text-align: right; padding-top: 10px; padding-bottom: 10px; color: white; width: 45%; background-color: #f44336;">$90</div>
+            </div>
+            <p>Number of Projects: 4</p>
+            <div style="width: 100%; background-color: #ddd;">
+              <div style="text-align: right; padding-top: 10px; padding-bottom: 10px; color: white; width: 60%; background-color: #f44336;">$120</div>
+            </div> 
+            <p>Number of Projects: 5</p>
+            <div style="width: 100%; background-color: #ddd;">
+              <div style="text-align: right; padding-top: 10px; padding-bottom: 10px; color: white; width: 75%; background-color: #f44336;">$150</div>
+            </div>
+          </div> 
+          -->
+          <!--
+          <div class="col-md-8">
+              <div style="border-radius: 12px;color: #252422; margin-bottom: 20px; position: relative; border: 0 none;">
+                <h5> Bill Amount</h5>
+                <div style="width: 100%; background-color: #ddd; border-radius:16px">
+                    <div style="text-align: right; padding-top: 10px; padding-bottom: 10px; color: white; width: 40%; background-color: #FF8C00; border-radius:16px"></div>
+                  </div>
+            </div>
+            </div>
+          <div class="col-md-8">
+              <div style="border-radius: 12px;color: #252422; margin-bottom: 20px; position: relative; border: 0 none;">
+                <h5> Billing Metrics</h5>
+                <p>In this billing service model, user is </p>
+              <img src=" img/billingmetrics.JPG">                          
+            </div>
+            </div>
+          -->
+          <div class="col-md-12">
+              <h5>Know your Billing Metrics</h5>
+              <p>
+                  Billing depends on how much service is being used, number of users, storage and other computing resouces used. Detailed usage information about service is recorded and billing is calculated as per the metrics. The amount of storage space in GB used, the number of users registered on this service instance, the number of interactions allocated to this service instance are few metrics used in billing. Detailed Billing Report and Cost and Usage Report are useful reports for understanding billing.
+                  </p><p>
+                  The Cost and Usage report tracks your usage and provides estimated charges associated with your account. The report contains line items for each unique combination of product, usage type, and operation that your account uses. You can customize the Cost and Usage report to aggregate the information either by the hour or by the day.
+                                  
+              </p>
+              <div class="col-md-10">
+              <img src=" img/billing.JPG">
+            </div>
+          </div>
+           </div>
+
+    </div>
+    <%- include footer.ejs %>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src=" js/core/jquery.min.js"></script>
+  <script src=" js/core/popper.min.js"></script>
+  <script src=" js/core/bootstrap.min.js"></script>
+  <script src=" js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src=" js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src=" js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src=" js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src=" demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+      demo.initChartsPages();
+    });
+  </script>
+</body>
+
+</html>
