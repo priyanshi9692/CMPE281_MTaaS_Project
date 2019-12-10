@@ -168,5 +168,34 @@ router.delete('/tester/editbug',function(req,res){
   });
   });
 
+  router.get('/gettestersforbugs', function(req, res, next) {
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("mobile_taas");
+      var info = {
+        "data":[]
+      };
+      dbo.collection("project_details").find({}).toArray(function(err, result) {
+        if (err) throw err;
+        // console.log(result);
+        for(var i=0;i<result.length;i++){
+          var values = {}
+       for(var j=0; j<result[i].bugs.length; j++){
+            console.log(result[i].bugs[j].tester);
+            if(result[i].bugs[j].tester==req.session.user.username){
+              values=result[i].bugs[j];
+              values.name=result[i].name;
+              info.data.push(values);
+            }
+           
+          }
+          }
+        res.send(info);
+  
+        return;
+      });
+    }); 
+  });
+
 
   module.exports = router;

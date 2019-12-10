@@ -108,19 +108,19 @@
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category"> My Projects Overview</p>
-                      <p class="card-title" id="num">
-                        <p>
+                      <p class="card-category">Total Projects</p>
+                      <p class="card-title" id="num"> </p>
+                      <p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card-footer ">
+              <!-- <div class="card-footer ">
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i> Update Now
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
@@ -134,21 +134,16 @@
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">New Projects Release</p>
-                      <p class="card-title">3
+                      <p class="card-category">New Project release</p>
+                      <p class="card-title" id="project_release">
                         <p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-calendar-o"></i> Last day
-                </div>
-              </div>
             </div>
           </div>
+          
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-body ">
@@ -161,7 +156,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Your project communities</p>
-                      <p class="card-title">1
+                      <p class="card-title" id="number_of_community">
                         <p>
                     </div>
                   </div>
@@ -195,51 +190,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Bug Statictics</h5>
-                <p class="card-category">Last Testing Report</p>
-              </div>
-              <div class="card-body ">
-                <canvas id="chartEmail"></canvas>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-primary"></i> Critical
-                  <i class="fa fa-circle text-warning"></i> High Priority
-                  <i class="fa fa-circle text-danger"></i>Medium Priority
-                  <i class="fa fa-circle text-gray"></i> Low Priority
-                </div>
-                <hr>
-                <div class="stats">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-title">Project Statistics</h5>
-                <p class="card-category">Daily Comparison</p>
-              </div>
-              <div class="card-body">
-                <canvas id="speedChart" width="400" height="100"></canvas>
-              </div>
-              <div class="card-footer">
-                <div class="chart-legend">
-                  <i class="fa fa-circle text-info"></i> Total Projects
-                  <i class="fa fa-circle text-warning"></i> Ongoing Projects
-                </div>
-                <hr/>
-                <div class="card-stats">
-              
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       
       </div>
       <%- include footer.ejs %>
     </div>
@@ -260,13 +211,14 @@
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src=" demo/demo.js"></script>
   <script>
-    $(document).ready(function() {
+     
+$(document).ready(function() {
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
+      //demo.initChartsPages();
       const url = '/getprojectsfortest';
       // Populate dropdown with list of provinces
       $.getJSON(url, function (info) {
-        console.log(info.data.length);
+        console.log(info);
         var count=0;
         for(var i= 0; i<info.data.length; i++){
           if(info.data[i].status==true){
@@ -274,10 +226,62 @@
         }
 
         }
-        console.log(count);
+        //console.log(count);
         var num = count;
+        var projectrelease = info.data.length - num;
         $("#num").text(num.toString());
+        $("#project_release").text(projectrelease.toString());
+        $("#number_of_community").text(num.toString());
+
+
+        chartColor = "#FFFFFF";
+        ctx = document.getElementById('chartHours').getContext("2d");
+        var ongoing = [];
+        var bugs = [];
+        for (var i = 0; i < info.data.length; i++) {
+         // if (info.data[i].tester.length > 0) {
+            ongoing.push(info.data[i].name);
+            bugs.push(info.data[i].bugs);
+         // }
+        }
+        myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ongoing,
+            datasets: [{
+              label: "No. of Teams working",
+              backgroundColor: ["lime", "aqua", "coral", "crimson"],
+              //borderWidth: 3,
+              data: bugs
+            }]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Project and Number of Teams working on it'
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  userCallback: function (label, index, labels) {
+                    // when the floored value is the same as the value we have a whole number
+                    if (Math.floor(label) === label) {
+                      return label;
+                    }
+                  },
+                }
+              }],
+            },
+          }
+        });
+
+
       });
+
+          //Getting Ongoing Project Vs working Teams
+   
   });
   </script>
 </body>

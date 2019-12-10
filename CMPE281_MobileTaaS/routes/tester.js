@@ -5,21 +5,22 @@ var formidable = require('formidable');
 var url = "mongodb://localhost:27017/mobile_taas";
 
 
+
 /* GET Profile Details */
-router.get('/getprofile', function(req, res, next) {
-        MongoClient.connect(url, function (err, db) {
-          if (err) throw err;
-          var dbo = db.db("mobile_taas");
-          var query = { username:req.session.user.username };
-          dbo.collection("client").findOne(query,function(err, result) {
-            if (err) throw err;
-            //console.log(result);
-            console.log(result);
-            res.send(result);
-            return;
-          });
-        }); 
-  });
+router.get('/tester_update', function(req, res, next) {
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("mobile_taas");
+    var query = { username:req.session.user.username };
+    dbo.collection("client").findOne(query,function(err, result) {
+      if (err) throw err;
+      //console.log(result);
+      console.log(result);
+      res.send(result);
+      return;
+    });
+  }); 
+});
 
 
 router.post('/edittesterprofile', function(req, res) {
@@ -33,17 +34,16 @@ router.post('/edittesterprofile', function(req, res) {
       dbo.collection("client").updateOne(query,newvalues,function(err, result) {
         if (err) throw err;
         //console.log(result);
-        req.session.user.name=form.user_name;
+        req.session.user.username=form.user_name;
         console.log(result);
         //res.send(result);
         //return;
-        return res.redirect("/tester_profile");
+        return res.redirect("/profile");
 
       });
     }); 
 
 });
-
 
 router.get('/download-docs', function(req, res){
   console.log(req.query);
@@ -80,9 +80,6 @@ router.post('/add-tester', function(req, res) {
 
   });
 });
-
-
-
 
 router.delete('/remove-tester', function(req, res) {
   console.log("body",req.body);
@@ -121,6 +118,7 @@ router.get('/getprojectsfortest', function(req, res, next) {
         values.link = result[i].link1;
         values.name = result[i].name;
         values.id=result[i]._id;
+        values.bugs = result[i].bugs.length;
         if(result[i].tester.includes(req.session.user.username)){
           values.status = true;
         }
@@ -149,16 +147,16 @@ router.get('/addemulator', function(req, res, next) {
   }
   return res.redirect("/");
 });
+
+
+
 /*jump to Bugs */
 router.get('/project_bugs', function(req, res, next) {
 if (req.session && req.session.user) {
   if(req.session.user.type=="tester"){
+
     var project={};
-
-    
-
-
-    return res.render('bugs',{
+    return res.render('bugs_tabs',{
       user:req.session.user.name,
       project:project
     });
@@ -174,4 +172,3 @@ return res.redirect("/");
 
 
 module.exports = router;
-

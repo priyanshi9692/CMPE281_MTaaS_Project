@@ -21,6 +21,7 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
    <style>
    .bs-example {
       margin: 20px;
@@ -38,6 +39,7 @@
    <!--     Fonts and icons     -->
    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+ 
    <!-- CSS Files -->
    <link href=" css/bootstrap.min.css" rel="stylesheet" />
    <link href=" css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
@@ -243,10 +245,7 @@
                            </thead>
                         </table>
                      </div>
-                     <div class="card-footer ">
-                        <hr>
-                        <div class="stats"> <i class="fa fa-history"></i> </div>
-                     </div>
+
                   </div>
                </div>                 
             </div>
@@ -364,6 +363,7 @@
   <script src="js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" type="text/javascript"></script>
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="demo/demo.js"></script>
   <script>
@@ -406,19 +406,37 @@ function deletebug(){
     }
   });
 }
-$('#locality-dropdown').change( function() {
-   $(this).find(":selected").each(function () {
-            var url="getbug?ID="+ $(this).val();
-            $.get(url, function(data, status){
-              document.getElementById('bug_id').value = data.bug_id;
-              document.getElementById('component').value = data.component;
-              document.getElementById('priority').value = data.priority;
-              document.getElementById('status').value = data.status;
-              document.getElementById('summary').value = data.summary;
-              console.log(data);
-            });
-    });
- });
+$('#bug-table').dataTable({
+        "ajax": {
+          "url": "gettestersforbugs",
+          "type": "GET"
+        },
+        "columns": [
+          { "data": "bug_id" },
+          { "data": "component" },
+          {"data":"status"},
+          {"data": "priority"},
+          {"data":"summary"}
+         //  {
+         //    "data": "documentation",
+         //    "render": function (data, type, row) {
+         //      return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+         //    }
+         //  },
+         //  {
+         //    "data": "testdata",
+         //    "render": function (data, type, row) {
+         //      return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+         //    }
+         //  },
+         //  {
+         //    "data": "testcases",
+         //    "render": function (data, type, row) {
+         //      return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
+         //    }
+         //  }
+        ]
+      });
 //Check if the below module applies for bugs//
 $('#document').on('change',function(){
                 //get the file name
