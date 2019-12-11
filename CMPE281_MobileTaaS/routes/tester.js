@@ -38,7 +38,7 @@ router.post('/edittesterprofile', function(req, res) {
         console.log(result);
         //res.send(result);
         //return;
-        return res.redirect("/profile");
+        return res.redirect("/tester");
 
       });
     }); 

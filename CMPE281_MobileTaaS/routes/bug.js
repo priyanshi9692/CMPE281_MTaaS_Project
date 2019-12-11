@@ -197,5 +197,20 @@ router.delete('/tester/editbug',function(req,res){
     }); 
   });
 
+  router.get('/getprojectbugs', function(req, res, next) {
+    MongoClient.connect(url, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db("mobile_taas");
+      console.log("bug_id: ", req.query.bug_id);
+      var query = { 'bugs': { $elemMatch:{'bugs_id':req.query.bug_id} } };
+      // ({"accounts.cars" : {$elemMatch: {"carId" : "3C"}}}, {"accounts.cars.$": 1, _id: 0})
+      dbo.collection("project_details").findOne(query,function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+        return;
+      });
+    }); 
+  });
 
   module.exports = router;

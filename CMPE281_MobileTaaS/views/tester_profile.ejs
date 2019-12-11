@@ -133,13 +133,13 @@
                 <h5 class="card-title">Edit Profile</h5>
               </div>
               <div class="card-body">
-                <form action="/edittesterprofile" method="post">
+                <form action="edittesterprofile" method="post">
 
                   <div class="row">
                   <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control" name="user_name" id="user_name">
+                        <input type="text" class="form-control" name="username" id="username">
                       </div>
                     </div>
                     <div class="col-md-6 pl-1">
@@ -152,16 +152,11 @@
                   <div class="row">
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" class="form-control" name="first_name" id="first_name">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" name="name" id="name">
                       </div>
                     </div>
-                    <div class="col-md-6 pl-1">
-                      <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control" name="last_name" id="last_name">
-                      </div>
-                    </div>
+                   
                   </div>
                   <div class="row">
                     <div class="col-md-12">
@@ -180,8 +175,8 @@
                     </div>
                     <div class="col-md-4 px-1">
                       <div class="form-group">
-                        <label>Country</label>
-                        <input type="text" class="form-control" name="country" id="country">
+                        <label>State</label>
+                        <input type="text" class="form-control" name="state" id="state">
                       </div>
                     </div>
                     <div class="col-md-4 pl-1">
@@ -266,13 +261,12 @@
     $( document ).ready(function() { 
 
 $.get("tester_update", function(data, status){
-  document.getElementById('user_name').value = data.user_name;
-  document.getElementById('first_name').value = data.first_name;
-  document.getElementById('last_name').value = data.last_name;
+  document.getElementById('username').value = data.username;
+  document.getElementById('name').value = data.name;
   document.getElementById('email').value = data.email;
   document.getElementById('address').value = data.address;
   document.getElementById('city').value = data.city;
-  document.getElementById('country').value = data.country;
+  document.getElementById('state').value = data.state;
   document.getElementById('zipcode').value = data.zipcode;
   document.getElementById('company').value = data.company;
   document.getElementById('skill').value = data.skill;

@@ -186,7 +186,7 @@
                               </div>
                            </div>
                               
-                              <div class="row">
+                              <!-- <div class="row">
                                  <div class="col-md-4">
                                     <div class="form-group">
                                        <label>Upload Documentation:</label>
@@ -208,7 +208,7 @@
                                        <label class="custom-file-testcase" for="testcase"></label>
                                        <input type="submit" class="btn btn-primary btn-round" value="Upload"> </div>
                                  </div>
-                              </div>
+                              </div> -->
                               <div class="row"> </div>
                               <div class="row">
                                  <div class="update ml-auto mr-auto">
@@ -260,26 +260,27 @@
                         <h5 class="card-title">Enter Bug details</h5> </div>
                      <div class="card-body">
                         <select id="locality-dropdown" name="locality"> </select>
+                        
                         <form action="/addabug" method="post" enctype="multipart/form-data">
                            <div class="row">
-                              <div class="col-md-5 pr-1">
+                              <!-- <div class="col-md-5 pr-1">
                                  <div class="form-group">
                                     <label>Bug ID</label>
                                     <input type="text" class="form-control" placeholder="Bug ID" id="bugid" name="bugid"> </div>
-                              </div>
+                              </div> -->
                            </div>
                            <div class="row">
                               <div class="col-md-5 pr-1">
                                  <div class="form-group">
                                     <label>Version</label>
-                                    <input type="text" class="form-control" placeholder="Version# (ex. v2.0 for update) " id="version" name="version"> </div>
+                                    <input type="text" class="form-control" placeholder="Version# (ex. v2.0 for update) " id="version1" name="version1"> </div>
                               </div>
                            </div>
                            <div class="row">
                               <div class="col-md-12">
                                  <div class="form-group">
                                     <label>Summary</label>
-                                    <textarea class="form-control textarea" id="summary" placeholder="Summary of the bug incurred"name="summary"></textarea>
+                                    <textarea class="form-control textarea" id="summary1" placeholder="Summary of the bug incurred"name="summary1"></textarea>
                                  </div>
                               </div>
                            </div>
@@ -287,25 +288,27 @@
                               <div class="col-md-5 pr-1">
                                  <div class="form-group">
                                     <label>Updated Priority</label>
-                                    <input type="text" class="form-control" placeholder="Low/Medium/High/Critical" id="priority" name="priority"> </div>
+                                    <input type="text" class="form-control" placeholder="Low/Medium/High/Critical" id="priority1" name="priority1"> </div>
                               </div>
                            </div>
                              <div class="row">
                               <div class="col-md-5 pr-1">
                                  <div class="form-group">
                                     <label>Updated Status</label>
-                                    <input type="text" class="form-control" placeholder="New/Open/Re-open/Closed" id="status" name="status"> </div>
+                                    <input type="text" class="form-control" placeholder="New/Open/Re-open/Closed" id="status1" name="status1">
+                                    <input type="text" class="form-control" placeholder="New/Open/Re-open/Closed" id="pid" name="pid" value= <%= project._id%> hidden >  
+                                 </div>
                               </div>
                            </div>
                               <div class="row">
                                  <div class="col-md-2 pr-1">
                                     <div class="form-group">
                                        <label>Date Modified</label>
-                                       <input type="text" class="form-control" placeholder="YYYYMMDD" id="date" name="date"> </div>
+                                       <input type="text" class="form-control" placeholder="YYYYMMDD" id="date1" name="date1"> </div>
                                        <input type="text" class="form-control" placeholder="id" id="id" name="id" hidden> </div>
                                  </div>
                               </div>
-                            <div class="row">
+                            <!-- <div class="row">
                               <div class="col-md-4">
                                  <div class="form-group">
                                     <label>Upload Documentation:</label>
@@ -327,7 +330,7 @@
                                     <label class="custom-file-testcase" for="testcase" id="case"></label>
                                     <input type="submit" class="btn btn-primary btn-round" value="Upload"> </div>
                               </div>
-                           </div>
+                           </div> -->
                            <div class="row"> </div>
                            <div class="row">
                               <div class="update ml-auto mr-auto">
@@ -372,12 +375,15 @@ let dropdown = $('#locality-dropdown');
 dropdown.empty();
 dropdown.append('<option selected="true" disabled>Choose Bug</option>');
 dropdown.prop('selectedIndex', 0);
-const url = '/tester/getallbugs';
+const url = '/gettestersforbugs';
 // Populate dropdown with list of provinces
 $.getJSON(url, function (data) {
-  $.each(data, function (key, entry) {
-    dropdown.append($('<option></option>').attr('value', entry).text(entry));
-  })
+//   $.each(data, function (key, entry) {
+//     dropdown.append($('<option></option>').attr('value', entry).text(entry));
+//   })
+for(var i=0; i<data.data.length; i++){
+   dropdown.append($('<option></option>').attr('value', data.data[i].bug_id).text(data.data[i].bug_id));
+}
 });
     });
     //$(this).find('option:selected').attr("name");
@@ -395,7 +401,7 @@ function deletebug(){
     success: function(result) {
        if(result == "success"){
          alert("Successfully Deleted:" + d); 
-         window.location.href = "/tester/getallbugs";
+         window.location.href = "/projects";
        }
        else {
          alert("Some error occured");
@@ -417,25 +423,7 @@ $('#bug-table').dataTable({
           {"data":"status"},
           {"data": "priority"},
           {"data":"summary"}
-         //  {
-         //    "data": "documentation",
-         //    "render": function (data, type, row) {
-         //      return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
-         //    }
-         //  },
-         //  {
-         //    "data": "testdata",
-         //    "render": function (data, type, row) {
-         //      return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
-         //    }
-         //  },
-         //  {
-         //    "data": "testcases",
-         //    "render": function (data, type, row) {
-         //      return '<a href="/uploads/' + data + '" target="_blank">' + data + '<b class="nc-icon nc-cloud-download-93"></b></a> ';
-         //    }
-         //  }
-        ]
+         ]
       });
 //Check if the below module applies for bugs//
 $('#document').on('change',function(){
@@ -465,6 +453,37 @@ $('#document').on('change',function(){
                 console.log(t);
                 $(this).next('.custom-file-testdata').html(t);
             });
+            
+           
+$('#locality-dropdown').change( function() {
+  console.log($("#locality-dropdown").find('option:selected').attr("value"));
+   var val=$("#locality-dropdown").find('option:selected').attr("value");
+   console.log(val);
+            var url="gettestersforbugs";
+
+            $.get(url, function(data, status){
+               for(var i=0; i<data.data.length; i++){
+                  console.log(data.data[i].bug_id);
+                  if(data.data[i].bug_id==val){
+                     document.getElementById('version1').value = data.data[i].version;
+                     document.getElementById('summary1').value = data.data[i].summary;
+                     document.getElementById('priority1').value = data.data[i].priority;
+                     document.getElementById('status1').value = data.data[i].status;
+                     document.getElementById('date1').value = data.data[i].date_created;
+                     $('#doc').text(data.data[i].documentation);
+                     $('#data').text(data.data[i].testdata);
+                     $('#case').text(data.data[i].testcases);
+                  }
+               }
+             
+            //   document.getElementById('pid').value = data.project.bug_id;
+            
+
+              console.log(data);
+         });
+   
+ });
+
   </script>
 
 
