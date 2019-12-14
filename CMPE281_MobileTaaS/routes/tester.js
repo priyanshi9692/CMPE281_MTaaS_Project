@@ -34,11 +34,11 @@ router.post('/edittesterprofile', function(req, res) {
       dbo.collection("client").updateOne(query,newvalues,function(err, result) {
         if (err) throw err;
         //console.log(result);
-        req.session.user.username=form.user_name;
+        req.session.user.name=form.name;
         console.log(result);
         //res.send(result);
         //return;
-        return res.redirect("/tester");
+        return res.redirect("/profile");
 
       });
     }); 

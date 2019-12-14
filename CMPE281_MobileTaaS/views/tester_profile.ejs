@@ -55,18 +55,18 @@
                 <p>My Test Progress</p>
               </a>
             </li>
-            <li class="active ">
+            <li class="active">
               <a href="/profile">
                 <i class="nc-icon nc-single-02"></i>
                 <p>Profile</p>
               </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="/project_bugs">
                  <i class="nc-icon nc-settings"></i>
                  <p>Bugs</p>
                 </a>
-              </li>
+              </li> -->
             <li>
                 <a href="/addemulator">
                   <i class="nc-icon nc-laptop"></i>
@@ -109,14 +109,10 @@
                     <h5 class="title"><%= user %></h5>
                   </a>
                   <p class="description">
-                    @priyanshijajoo
+                    @<%= user %>
                   </p>
                 </div>
-                <p class="description text-center">
-                  "I love to make  
-                  <br> user friendly
-                  <br> applications"
-                </p>
+                
               </div>
               <div class="card-footer">
                 <hr>
@@ -136,13 +132,8 @@
                 <form action="edittesterprofile" method="post">
 
                   <div class="row">
-                  <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control" name="username" id="username">
-                      </div>
-                    </div>
-                    <div class="col-md-6 pl-1">
+                 
+                    <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" class="form-control" name="email" id="email">
@@ -203,17 +194,6 @@
                       </div>
                     </div>
                   </div>
-                 <!-- <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label>Upload Your Resume:</label>
-                            <input type="file" name="resume" id="resume" multiple>
-                  
-                            <label class="custom-file-resume" for="resume"></label>
-                            <input type="submit" class="btn btn-primary btn-round" value="Upload">
-                          </div>
-                        </div>
-                    </div>> -->
 
                   <div class="row">
                     <div class="update ml-auto mr-auto">
@@ -247,21 +227,20 @@
   <script src="demo/demo.js"></script>
 </body>
 <script>
-    $('#resume').on('change',function(){
-        //get the file name
-     var fileName = $(this).val();
-     var t = fileName.split("\\");
-        t = t[t.length-1];
-        console.log(t);
-        //replace the "Choose a file" label
-        $(this).next('.custom-file-resume').html(t);
-    });
+    // $('#resume').on('change',function(){
+    //     //get the file name
+    //  var fileName = $(this).val();
+    //  var t = fileName.split("\\");
+    //     t = t[t.length-1];
+    //     console.log(t);
+    //     //replace the "Choose a file" label
+    //     $(this).next('.custom-file-resume').html(t);
+    // });
 
 
     $( document ).ready(function() { 
 
 $.get("tester_update", function(data, status){
-  document.getElementById('username').value = data.username;
   document.getElementById('name').value = data.name;
   document.getElementById('email').value = data.email;
   document.getElementById('address').value = data.address;

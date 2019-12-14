@@ -247,15 +247,28 @@
           <div class="col-md-6">
             <div class="card ">
               <div class="card-header ">
-                <h5 class="card-title">Total Projects in Test</h5>
-
+                <h5 class="card-title">Project List</h5>
+                <p class="card-category"></p>
               </div>
+              
               <div class="card-body ">
-                <canvas id="chartProgress" width="300px" height="253"></canvas>
+                <table id="projects-tester" style="width:100%">
+                  <thead>
+                    <tr>
+
+                      <th>Project Name</th>
+                      <th>Crowded-Sourced Testers</th>
+                      <th>Bugs</th>
+                      <th>Priority</th>
+                    </tr>
+                  </thead>
+                </table>
               </div>
-            </div>
+              </div>
           </div>
+        
         </div>
+        
         <div class="row">
           <div class="col-md-6">
             <div class="card ">
@@ -272,24 +285,16 @@
           <div class="col-md-6">
             <div class="card ">
               <div class="card-header ">
-                <h5 class="card-title">Project List</h5>
-                <p class="card-category"></p>
+                <h5 class="card-title">Total Projects in Test</h5>
+
               </div>
               <div class="card-body ">
-                <table id="projects-tester" style="width:100%">
-                  <thead>
-                    <tr>
-
-                      <th>Project Name</th>
-                      <th>Crowded-Sourced Testers</th>
-
-                    </tr>
-                  </thead>
-                </table>
+                <canvas id="chartProgress" width="400" height="200"></canvas>
               </div>
-              
             </div>
           </div>
+          
+          
         </div>
       </div>
       <%- include footer.ejs %>
@@ -505,7 +510,37 @@ values.push(data.length - ongoing);
             "render": function (data, type, row) {
               return  data ;
             }
-          }
+          },
+            
+            {
+            "data": "bugs",
+            "render": function (data, type, row) {
+              var str ="";
+             if(data.length>0){
+              for(var i=0;i<data.length;i++){
+                str+=data[i].bug_id +" ";
+              }
+             }
+           
+            return str;
+             }
+             
+            },
+            {
+            "data": "bugs",
+            "render": function (data, type, row) {
+              var str ="";
+             if(data.length>0){
+              for(var i=0;i<data.length;i++){
+                str+=data[i].priority +" ";
+              }
+             }
+           
+            return str;
+             }
+             
+            }
+          
       
       
         ],

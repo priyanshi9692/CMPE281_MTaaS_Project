@@ -169,21 +169,7 @@ router.post('/editproject', function(req, res) {
       console.log('Field', name, field)
     });
 
-  //   form.on('fileBegin', function (name, file){
-  //     console.log(file.name);
-  //     if(file.name!==undefined && file.name!=" " && file.name !=""){
-  //     var ext = file.name.split(".")[1];
-  //     file.name =  req.session.user.username + "_"+ name + "." + ext;
-  //     pro.push(file.name);
-  //     console.log(file.name);
-  //     }
-  //     //file.path = process.cwd() + '/public/uploads/' + file.name;
-  // });
 
-  // form.on('file', function (name, file){
-  //     //pro.push(file.name);
-  //     console.log('Uploaded ' + file.name);
-  // });
   form.on('end', () => {
 console.log(pro);
 
